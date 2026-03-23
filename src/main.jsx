@@ -1,17 +1,24 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { HashRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 
-import { StoreProvider } from "./store/store-context";
-import { App } from "./App";
-import "./styles.css";
+import { App } from "./app/App";
+import "./styles/index.css";
+
+const redirectedPath = new URLSearchParams(window.location.search).get("p");
+
+if (redirectedPath) {
+  const decoded = decodeURIComponent(redirectedPath);
+  const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+  const nextPath = decoded.startsWith("/") ? decoded : `/${decoded}`;
+
+  window.history.replaceState(null, "", `${base}${nextPath}`);
+}
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <HashRouter>
-      <StoreProvider>
-        <App />
-      </StoreProvider>
-    </HashRouter>
-  </React.StrictMode>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>,
 );
