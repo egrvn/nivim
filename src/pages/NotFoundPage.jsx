@@ -1,11 +1,6 @@
-import { useEffect } from "react";
-
-import { NotFoundSection } from "../sections/PageSections";
+import { TildaPage } from "../components/TildaPage";
+import { tildaPages } from "../tilda/pages";
 
 export function NotFoundPage() {
-  useEffect(() => {
-    document.title = "404";
-  }, []);
-
-  return <NotFoundSection />;
+  return <TildaPage page={tildaPages.notFound} />;
 }

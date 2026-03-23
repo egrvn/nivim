@@ -2,17 +2,186 @@
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="VIDEL R1 превращает комнату в кинотеатр — без лишних проводов и сложных настроек."
+      content="VIDEL R1 превращает комнату в кинотеатр — без лишних проводов и сложных настроек"
     />
-    <title>NIVIM</title>
-    <link rel="icon" type="image/svg+xml" href="/assets/tilda/tild6631-3264-4661-a335-376231633163__frame_13.svg" />
-    <link rel="apple-touch-icon" href="/assets/tilda/tild3863-6137-4363-a365-616134313931__frame_13.png" />
+    <meta name="format-detection" content="telephone=no" />
+    <title>NIVIM - Так начинается кино...</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      sizes="32x32"
+      href="%BASE_URL%tilda/images/tild3539-3938-4563-b765-663739396661__frame_13.svg"
+      media="(prefers-color-scheme: light)"
+    />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      sizes="32x32"
+      href="%BASE_URL%tilda/images/tild6330-6266-4436-a338-636234663362__frame_13.svg"
+      media="(prefers-color-scheme: dark)"
+    />
+    <link rel="icon" type="image/svg+xml" sizes="any" href="%BASE_URL%tilda/images/tild6631-3264-4661-a335-376231633163__frame_13.svg" />
+    <link rel="apple-touch-icon" type="image/png" href="%BASE_URL%tilda/images/tild3863-6137-4363-a365-616134313931__frame_13.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="%BASE_URL%tilda/images/tild3863-6137-4363-a365-616134313931__frame_13.png" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&subset=latin,cyrillic" rel="stylesheet" />
+    <link rel="stylesheet" href="%BASE_URL%tilda/css/tilda-grid-3.0.min.css" />
+    <link rel="stylesheet" href="%BASE_URL%tilda/css/tilda-animation-2.0.min.css" />
+    <link rel="stylesheet" href="%BASE_URL%tilda/css/tilda-feed-1.1.min.css" />
+    <link rel="stylesheet" href="%BASE_URL%tilda/css/tilda-popup-1.1.min.css" />
+    <link rel="stylesheet" href="%BASE_URL%tilda/css/tilda-slds-1.4.min.css" />
+    <link rel="stylesheet" href="%BASE_URL%tilda/css/tilda-menu-widgeticons-1.0.min.css" />
+    <link rel="stylesheet" href="%BASE_URL%tilda/css/tilda-forms-1.0.min.css" />
+    <link rel="stylesheet" href="%BASE_URL%tilda/css/tilda-contact-method-1.0.min.css" />
+    <link rel="stylesheet" href="%BASE_URL%tilda/css/tilda-cards-1.0.min.css" />
+    <link rel="stylesheet" href="%BASE_URL%tilda/css/quill-table.min.css" />
+    <link rel="stylesheet" href="%BASE_URL%tilda/css/tilda-blocks-page120333936.min.css" />
+    <link rel="stylesheet" href="%BASE_URL%tilda/css/tilda-blocks-page120459556.min.css" />
+    <link rel="stylesheet" href="%BASE_URL%tilda/css/tilda-blocks-page120426526.min.css" />
+    <link rel="stylesheet" href="%BASE_URL%tilda/css/tilda-blocks-page120464476.min.css" />
+    <link rel="stylesheet" href="%BASE_URL%tilda/css/tilda-blocks-page120334036.min.css" />
+    <link rel="stylesheet" href="%BASE_URL%tilda/css/tilda-blocks-page120334056.min.css" />
+    <link rel="stylesheet" href="%BASE_URL%tilda/css/tilda-blocks-page120334046.min.css" />
+    <link rel="stylesheet" href="%BASE_URL%tilda/css/tilda-blocks-page120334076.min.css" />
+    <script nomodule src="%BASE_URL%tilda/js/tilda-polyfill-1.0.min.js" charset="utf-8"></script>
+    <script>
+      function t_onReady(func) {
+        if (document.readyState !== "loading") {
+          func();
+        } else {
+          document.addEventListener("DOMContentLoaded", func);
+        }
+      }
+
+      function t_onFuncLoad(funcName, okFunc, time) {
+        if (typeof window[funcName] === "function") {
+          okFunc();
+        } else {
+          setTimeout(function () {
+            t_onFuncLoad(funcName, okFunc, time);
+          }, time || 100);
+        }
+      }
+
+      function t396_initialScale(recid) {
+        var rec = document.getElementById("rec" + recid);
+        if (!rec) return;
+        var artboard = rec.querySelector(".t396__artboard");
+        if (!artboard) return;
+
+        if (!window.tn_scale_initial_window_width) {
+          window.tn_scale_initial_window_width = document.documentElement.clientWidth;
+        }
+
+        var windowWidth = window.tn_scale_initial_window_width;
+        var screensAttr = artboard.getAttribute("data-artboard-screens");
+        var screens = screensAttr ? screensAttr.split(",").map(function (screen) { return parseInt(screen, 10); }) : [320, 480, 640, 960, 1200];
+        var screenWidth;
+
+        screens.forEach(function (screen) {
+          if (windowWidth >= screen) {
+            screenWidth = screen;
+          }
+        });
+
+        var isEditMode = window.allrecords && window.allrecords.getAttribute("data-tilda-mode") === "edit";
+        var isCentered = t396_getFieldValue(artboard, "valign", screenWidth, screens) === "center";
+        var isGrid = t396_getFieldValue(artboard, "upscale", screenWidth, screens) === "grid";
+        var hasVhHeight = t396_getFieldValue(artboard, "height_vh", screenWidth, screens);
+        var height = t396_getFieldValue(artboard, "height", screenWidth, screens);
+        var isOpera = (!!window.opr && !!window.opr.addons) || !!window.opera || navigator.userAgent.indexOf(" OPR/") !== -1;
+
+        if (!isEditMode && isCentered && !isGrid && !hasVhHeight && height && !isOpera) {
+          var scale = parseFloat((windowWidth / screenWidth).toFixed(3));
+          var targets = [artboard, artboard.querySelector(".t396__carrier"), artboard.querySelector(".t396__filter")];
+          var scaledHeight = Math.floor(parseInt(height, 10) * scale) + "px";
+
+          artboard.style.setProperty("--initial-scale-height", scaledHeight);
+          targets.forEach(function (target) {
+            if (target) {
+              target.style.setProperty("height", "var(--initial-scale-height)");
+            }
+          });
+
+          t396_scaleInitial__getElementsToScale(artboard).forEach(function (element) {
+            element.style.zoom = scale;
+          });
+        }
+      }
+
+      function t396_scaleInitial__getElementsToScale(artboard) {
+        return artboard
+          ? Array.prototype.slice.call(artboard.children).filter(function (child) {
+              return child && (child.classList.contains("t396__elem") || child.classList.contains("t396__group"));
+            })
+          : [];
+      }
+
+      function t396_getFieldValue(artboard, field, screenWidth, screens) {
+        var value;
+        var lastScreen = screens[screens.length - 1];
+
+        if (screenWidth === lastScreen) {
+          value = artboard.getAttribute("data-artboard-" + field);
+        } else {
+          value = artboard.getAttribute("data-artboard-" + field + "-res-" + screenWidth);
+        }
+
+        if (value) {
+          return value;
+        }
+
+        for (var i = 0; i < screens.length; i += 1) {
+          var screen = screens[i];
+          if (screen <= screenWidth) continue;
+          value =
+            screen === lastScreen
+              ? artboard.getAttribute("data-artboard-" + field)
+              : artboard.getAttribute("data-artboard-" + field + "-res-" + screen);
+          if (value) {
+            break;
+          }
+        }
+
+        return value;
+      }
+
+      window.TN_SCALE_INITIAL_VER = "1.0";
+      window.tn_scale_initial_window_width = null;
+      window.dataLayer = window.dataLayer || [];
+    </script>
+    <script defer src="%BASE_URL%tilda/js/tilda-scripts-3.0.min.js" charset="utf-8"></script>
+    <script defer src="%BASE_URL%tilda/js/tilda-animation-2.0.min.js" charset="utf-8"></script>
+    <script defer src="%BASE_URL%tilda/js/tilda-zero-1.1.min.js" charset="utf-8"></script>
+    <script defer src="%BASE_URL%tilda/js/tilda-feed-1.1.min.js" charset="utf-8"></script>
+    <script defer src="%BASE_URL%tilda/js/tilda-slds-1.4.min.js" charset="utf-8"></script>
+    <script defer src="%BASE_URL%tilda/js/hammer.min.js" charset="utf-8"></script>
+    <script defer src="%BASE_URL%tilda/js/tilda-popup-1.0.min.js" charset="utf-8"></script>
+    <script defer src="%BASE_URL%tilda/js/tilda-menu-1.0.min.js" charset="utf-8"></script>
+    <script defer src="%BASE_URL%tilda/js/tilda-menu-widgeticons-1.0.min.js" charset="utf-8"></script>
+    <script defer src="%BASE_URL%tilda/js/tilda-forms-1.0.min.js" charset="utf-8"></script>
+    <script defer src="%BASE_URL%tilda/js/tilda-animation-sbs-1.0.min.js" charset="utf-8"></script>
+    <script defer src="%BASE_URL%tilda/js/tilda-zero-scale-1.0.min.js" charset="utf-8"></script>
+    <script defer src="%BASE_URL%tilda/js/tilda-skiplink-1.0.min.js" charset="utf-8"></script>
+    <script defer src="%BASE_URL%tilda/js/tilda-events-1.0.min.js" charset="utf-8"></script>
+    <script defer src="%BASE_URL%tilda/js/tilda-cards-1.0.min.js" charset="utf-8"></script>
+    <script defer src="%BASE_URL%tilda/js/tilda-phone-mask-1.1.min.js" charset="utf-8"></script>
+    <script defer src="%BASE_URL%tilda/js/tilda-contact-method-1.0.min.js" charset="utf-8"></script>
+    <script defer src="%BASE_URL%tilda/js/tilda-blocks-page120333936.min.js" charset="utf-8"></script>
+    <script defer src="%BASE_URL%tilda/js/tilda-blocks-page120459556.min.js" charset="utf-8"></script>
+    <script defer src="%BASE_URL%tilda/js/tilda-blocks-page120426526.min.js" charset="utf-8"></script>
+    <script defer src="%BASE_URL%tilda/js/tilda-blocks-page120464476.min.js" charset="utf-8"></script>
+    <script defer src="%BASE_URL%tilda/js/tilda-blocks-page120334036.min.js" charset="utf-8"></script>
+    <script defer src="%BASE_URL%tilda/js/tilda-blocks-page120334056.min.js" charset="utf-8"></script>
+    <script defer src="%BASE_URL%tilda/js/tilda-blocks-page120334046.min.js" charset="utf-8"></script>
+    <script defer src="%BASE_URL%tilda/js/tilda-blocks-page120334076.min.js" charset="utf-8"></script>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
-  </html>
+</html>
