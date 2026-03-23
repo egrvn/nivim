@@ -4,6 +4,7 @@ dist/
 
 # Local temp/output
 tmp/
+.tmp/
 output/
 
 # OS/editor
