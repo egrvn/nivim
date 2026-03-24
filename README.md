@@ -1,13 +1,12 @@
 # NIVIM
 
-Реконструкция экспортированного сайта из Tilda на `React + Vite + Tailwind CSS`.
+Статический multi-page сайт NIVIM для GitHub Pages. Публикуемая версия больше не зависит от React, Tailwind или Tilda runtime как от основного рендер-слоя: страницы собираются из hand-authored шаблонов, общего брендового CSS и клиентского JS.
 
 ## Стек
 
-- `React 19`
-- `Vite`
-- `Tailwind CSS 4`
-- `react-router-dom`
+- `Node.js`
+- статическая `MPA`-архитектура
+- общий renderer на `ESM`
 - `GitHub Pages`
 
 ## Локальный запуск
@@ -17,40 +16,50 @@ npm install
 npm run dev
 ```
 
-Приложение стартует локально через Vite. Для проверки production-сборки под GitHub Pages:
+Локальный preview поднимает простой HTTP-сервер и предварительно собирает `dist/`.
+
+## Production build
+
+Для сборки под GitHub Pages c base path `/nivim/`:
 
 ```bash
 VITE_BASE_PATH=/nivim/ npm run build
 ```
 
-## Форма заявки
-
-Форма использует webhook-адаптер. Для реальной отправки создай `.env.local`:
-
-```bash
-VITE_LEAD_WEBHOOK_URL=https://example.com/webhook
-```
-
-Если переменная не задана, UI формы работает, но показывает корректное сообщение о временной недоступности отправки.
+Результат оказывается в `dist/`.
 
 ## Деплой
 
-Публикация настроена через GitHub Actions в `.github/workflows/deploy-pages.yml`.
+Публикация настроена через GitHub Actions в [.github/workflows/deploy-pages.yml](/Users/egorovn/Desktop/Проекты/NIVIM/.github/workflows/deploy-pages.yml).
 
 - ветка: `main`
 - output: `dist`
 - base path: `/nivim/`
-- SPA fallback: `public/404.html`
+- маршруты публикуются как реальные HTML-страницы:
+  - `/`
+  - `/o-kompanii/`
+  - `/podderjka/`
+  - `/blog/`
+  - `/privacy-policy/`
 
-## Структура
+## Исходники
 
 ```text
-src/
-  app/         routing + layout shell
-  components/  shared UI blocks
-  data/        extracted site content
-  lib/         helpers for assets, scroll, reveal, lead submit
-  pages/       route-level pages
-  sections/    page sections rebuilt from Tilda blocks
-  styles/      Tailwind entry + design tokens + globals
+site-src/
+  data/        контент и структура страниц
+  scripts/     клиентские интерактивы
+  styles/      брендовые токены и компоненты
+  templates/   HTML renderer и общие partials
+
+scripts/
+  build-static-site.mjs
+  dev-static-site.mjs
+
+public/assets/
+  fonts/
+  tilda/
 ```
+
+## Примечание
+
+Каталог `src/` остаётся в репозитории как след предыдущих итераций, но не участвует в публикации сайта. Канонический publish path собирается только из `site-src/`, `public/assets/` и `scripts/`.
