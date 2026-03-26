@@ -1,404 +1,244 @@
-import { useMemo, useState } from "react";
-
-import { motion } from "framer-motion";
-
-import { useCart } from "../commerce/cart";
-import { Accordion } from "../components/Accordion";
-import { Button } from "../components/Button";
-import { PageShell } from "../components/PageShell";
-import { Reveal } from "../components/Reveal";
-import { catalog, homeContent, siteMeta } from "../content/site";
-import { formatPrice } from "../lib/format";
-import { asset, homeAnchor, route } from "../lib/paths";
+import { Artboard } from "../components/Artboard";
+import { HomeFinalFooter } from "../components/HomeFinalFooter";
+import { TopStrip } from "../components/TopStrip";
+import { homeContent } from "../content/site";
+import { asset, homeAnchor } from "../lib/paths";
 import { renderLines } from "../lib/text";
 
-const product = catalog[0];
+const scenarioPositions = [
+  { left: 10, top: 1183 },
+  { left: 605, top: 1183 },
+  { left: 10, top: 1543 },
+  { left: 605, top: 1543 },
+] as const;
+
+const benefitPositions = [
+  { left: 10, top: 2260 },
+  { left: 407, top: 2260 },
+  { left: 804, top: 2260 },
+] as const;
+
+const featurePositions = [
+  { left: 10, top: 4824 },
+  { left: 804, top: 4824 },
+  { left: 10, top: 5065 },
+  { left: 407, top: 5065 },
+  { left: 804, top: 5065 },
+] as const;
 
 export function HomePage() {
-  const [activeStep, setActiveStep] = useState(0);
-  const { addItem, getQuantity } = useCart();
-  const productQuantity = getQuantity(product.id);
-  const activeStepData = useMemo(() => homeContent.steps.items[activeStep], [activeStep]);
-
   return (
-    <PageShell pageKey="home">
-      <main>
-        <section className="hero-section hero-section--home">
-          <div className="page-shell">
-            <div className="hero-grid">
-              <div className="space-y-6">
-                <Reveal>
-                  <p className="section-kicker">{homeContent.hero.eyebrow}</p>
-                </Reveal>
-                <Reveal delay={0.04}>
-                  <h1 className="display-title display-title--hero">{renderLines(homeContent.hero.title)}</h1>
-                </Reveal>
-                <Reveal delay={0.08}>
-                  <p className="lead-copy max-w-[41rem]">{homeContent.hero.lead}</p>
-                </Reveal>
-                <Reveal delay={0.12}>
-                  <p className="body-copy max-w-[39rem]">{homeContent.hero.body}</p>
-                </Reveal>
-                <Reveal delay={0.16}>
-                  <p className="caption-copy max-w-[35rem]">{homeContent.hero.supporting}</p>
-                </Reveal>
+    <Artboard className="figma-home" height={11308}>
+      <div className="figma-home__background" />
+      <TopStrip page="home" />
 
-                <Reveal delay={0.2} className="flex flex-wrap gap-3">
-                  <Button onClick={() => addItem(product.id)}>{productQuantity > 0 ? "Добавить ещё" : "В корзину"}</Button>
-                  <Button href={homeAnchor("demo")} variant="secondary">
-                    Посмотреть в деле
-                  </Button>
-                </Reveal>
+      <section id="top">
+        <img alt="" aria-hidden="true" className="home-hero__background" src={asset(homeContent.hero.background)} />
+        <img alt="" aria-hidden="true" className="home-hero__star" src={asset(homeContent.hero.star)} />
+        <div className="figma-wordmark figma-wordmark--hero figma-wordmark--ghosted" aria-hidden="true">
+          <span className="figma-wordmark__ghost">N</span>
+          <span>IVI</span>
+          <span className="figma-wordmark__ghost">M</span>
+        </div>
+        <div className="figma-wordmark figma-wordmark--hero" aria-hidden="true">
+          <span>N</span>
+          <span className="figma-wordmark__ghost">IVI</span>
+          <span>M</span>
+        </div>
 
-                <Reveal delay={0.24}>
-                  <div className="grid gap-3 sm:grid-cols-3">
-                    {homeContent.hero.metrics.map((metric) => (
-                      <article key={metric.label} className="metric-card">
-                        <strong>{metric.value}</strong>
-                        <span>{metric.label}</span>
-                      </article>
-                    ))}
-                  </div>
-                </Reveal>
-              </div>
+        <h1 className="figma-gradient-heading figma-gradient-heading--center figma-home__hero-title">{homeContent.hero.kicker}</h1>
+        <p className="figma-home__hero-lead">{homeContent.hero.lead}</p>
+        <a className="figma-light-button figma-light-button--center" href={homeAnchor("product")}>
+          {homeContent.hero.cta}
+        </a>
+        <p className="figma-home__hero-note">{homeContent.hero.note}</p>
 
-              <Reveal delay={0.18}>
-                <div className="hero-stage">
-                  <img alt="" aria-hidden="true" className="hero-stage__beam" src={asset(homeContent.hero.beam)} />
-                  <img alt="" aria-hidden="true" className="hero-stage__world" src={asset(homeContent.hero.stageImage)} />
-                  <div className="hero-stage__wordmark">NIVIM</div>
-                  <div className="hero-stage__eyebrow">VIDEL R1</div>
-                  <img alt="Домашний проектор NIVIM VIDEL R1" className="hero-stage__device" src={asset(homeContent.hero.image)} />
-                  <div className="hero-stage__price">
-                    <span>Цена</span>
-                    <strong>{sitePrice()}</strong>
-                    <p>Сильнее по ощущению, чем многие модели дороже 45 000 ₽.</p>
-                  </div>
-                </div>
-              </Reveal>
+        <img alt="" aria-hidden="true" className="home-hero__beam" src={asset(homeContent.hero.beam)} />
+        <img alt="VIDEL R1" className="home-hero__device" src={asset(homeContent.hero.device)} />
+      </section>
+
+      <section id="product">
+        <div className="figma-section-backdrop" style={{ top: 1006, height: 636 }} />
+        <h2 className="figma-gradient-heading figma-gradient-heading--center figma-home__section-title" style={{ top: 969, width: 805, left: 198 }}>
+          {renderLines(homeContent.scenarios.title)}
+        </h2>
+        <p className="figma-home__section-copy" style={{ top: 1091, width: 653, left: 274 }}>
+          {homeContent.scenarios.description}
+        </p>
+
+        {homeContent.scenarios.cards.map((card, index) => {
+          const position = scenarioPositions[index];
+          return (
+            <article
+              key={card.title}
+              className={`home-scenario-card home-scenario-card--${card.align}`}
+              style={{ left: position.left, top: position.top }}
+            >
+              <img alt={card.title} className="home-scenario-card__image" src={asset(card.image)} />
+              <h3 className="home-scenario-card__title">{card.title}</h3>
+              <p className="home-scenario-card__description">{card.description}</p>
+              <p className="home-scenario-card__quote">{card.quote}</p>
+            </article>
+          );
+        })}
+      </section>
+
+      <section>
+        <h2 className="figma-gradient-heading figma-gradient-heading--center figma-home__section-title" style={{ top: 2058, width: 601, left: 300 }}>
+          {homeContent.benefits.title}
+        </h2>
+        <p className="figma-home__section-copy" style={{ top: 2144, width: 643, left: 279 }}>
+          {homeContent.benefits.description}
+        </p>
+
+        {homeContent.benefits.cards.map((card, index) => {
+          const position = benefitPositions[index];
+          return (
+            <article key={card.title} className={`home-info-card home-info-card--${card.variant ?? "dark"}`} style={{ left: position.left, top: position.top }}>
+              {card.icon ? <img alt="" aria-hidden="true" className="home-info-card__icon" src={asset(card.icon)} /> : null}
+              <h3 className="home-info-card__title">{card.title}</h3>
+              <p className="home-info-card__description">{card.description}</p>
+            </article>
+          );
+        })}
+      </section>
+
+      <section>
+        <h2 className="figma-gradient-heading figma-gradient-heading--center figma-home__section-title" style={{ top: 2656, width: 601, left: 300 }}>
+          {homeContent.steps.title}
+        </h2>
+        <p className="figma-home__section-copy" style={{ top: 2742, width: 620, left: 300 }}>
+          {homeContent.steps.description}
+        </p>
+
+        {homeContent.steps.items.map((step, index) => (
+          <div key={step.number}>
+            <div className="home-step__number-shell" style={{ left: 10, top: 3138 + index * 531 }}>
+              <span>{step.number}</span>
             </div>
+            <p className="home-step__kicker" style={{ top: 3107 + index * 531 }}>
+              {step.kicker}
+            </p>
+            <h3 className="home-step__title" style={{ top: 3145 + index * 531 }}>
+              {step.title}
+            </h3>
+            <p className="home-step__description" style={{ top: 3218 + index * 531 }}>
+              {step.description}
+            </p>
+            <img alt={step.title} className="home-step__image" src={asset(step.image)} style={{ top: 2912 + index * 540 }} />
           </div>
-        </section>
+        ))}
+      </section>
 
-        <section className="section-pad" id="product">
-          <div className="page-shell space-y-8">
-            <Reveal className="section-heading-shell">
-              <p className="section-kicker">{homeContent.scenarios.title}</p>
-              <h2 className="display-title display-title--section">Сценарии, в которых устройство выглядит убедительно</h2>
-              <p className="body-copy max-w-[50rem]">{homeContent.scenarios.intro}</p>
-            </Reveal>
+      <section id="demo">
+        <h2 className="figma-gradient-heading figma-gradient-heading--center figma-home__section-title" style={{ top: 4622, width: 601, left: 300 }}>
+          {renderLines(homeContent.features.title)}
+        </h2>
+        <p className="figma-home__section-copy" style={{ top: 4708, width: 654, left: 273 }}>
+          {homeContent.features.description}
+        </p>
 
-            <div className="grid gap-4 md:grid-cols-2">
-              {homeContent.scenarios.cards.map((card, index) => (
-                <Reveal key={card.title} delay={index * 0.05}>
-                  <article className="scenario-card">
-                    <div className="scenario-card__media">
-                      <img alt={card.title} className="scenario-card__image" loading="lazy" src={asset(card.image)} />
-                    </div>
-                    <div className="space-y-3">
-                      <div className="scenario-card__meta">
-                        <h3 className="card-title">{card.title}</h3>
-                        <p>{card.quote}</p>
-                      </div>
-                      <p className="body-copy body-copy--small">{card.text}</p>
-                    </div>
-                  </article>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
+        <article className="home-feature-card home-feature-card--media" style={{ left: 407, top: 4824 }}>
+          <img alt="" aria-hidden="true" className="home-feature-card__image" src={asset(homeContent.features.mediaCard)} />
+        </article>
 
-        <section className="section-pad section-pad--soft">
-          <div className="page-shell grid gap-4 xl:grid-cols-[0.84fr,1.16fr]">
-            <Reveal className="feature-panel">
-              <p className="section-kicker">Дом, в котором живёт кино</p>
-              <h2 className="display-title display-title--section">{homeContent.benefits.title}</h2>
-              <p className="body-copy mt-4">{homeContent.benefits.intro}</p>
-            </Reveal>
+        {homeContent.features.items.map((feature, index) => {
+          const position = featurePositions[index];
+          return (
+            <article
+              key={feature.title}
+              className={`home-feature-card home-feature-card--${feature.variant}`}
+              style={{ left: position.left, top: position.top }}
+            >
+              <img alt="" aria-hidden="true" className="home-feature-card__icon" src={asset(feature.icon)} />
+              <h3 className="home-feature-card__title">{feature.title}</h3>
+              <p className="home-feature-card__description">{feature.description}</p>
+            </article>
+          );
+        })}
+      </section>
 
-            <div className="grid gap-4 md:grid-cols-3">
-              {homeContent.benefits.cards.map((card, index) => (
-                <Reveal key={card.title} delay={index * 0.06}>
-                  <article className="feature-panel h-full">
-                    <p className="section-kicker">NIVIM</p>
-                    <h3 className="card-title mt-4">{card.title}</h3>
-                    <p className="body-copy body-copy--small mt-3">{card.text}</p>
-                  </article>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
+      <section>
+        <h2 className="figma-gradient-heading figma-gradient-heading--left" style={{ top: 5461, left: 0, width: 1200 }}>
+          {homeContent.video.title}
+        </h2>
+        <p className="figma-home__section-copy" style={{ top: 5527, width: 627, left: 287 }}>
+          {homeContent.video.description}
+        </p>
+        <div className="home-placeholder home-placeholder--video" style={{ left: 10, top: 5631, width: 1180, height: 548 }}>
+          <span>{homeContent.video.placeholder}</span>
+        </div>
+      </section>
 
-        <section className="section-pad">
-          <div className="page-shell grid gap-6 lg:grid-cols-[0.88fr,1.12fr] lg:items-start">
-            <Reveal className="space-y-5">
-              <p className="section-kicker">Просто включи</p>
-              <h2 className="display-title display-title--section">{homeContent.steps.title}</h2>
-              <p className="body-copy max-w-[34rem]">{homeContent.steps.intro}</p>
+      <section>
+        <img alt="" aria-hidden="true" className="home-value__background" src={asset(homeContent.video.background)} />
+        <h2 className="figma-gradient-heading figma-gradient-heading--center figma-home__section-title" style={{ top: 6343, width: 601, left: 300 }}>
+          {renderLines(homeContent.value.title)}
+        </h2>
+        <p className="figma-home__section-copy" style={{ top: 6435, width: 574, left: 313 }}>
+          {homeContent.value.description}
+        </p>
+        <div className="home-value__specs">
+          {homeContent.value.specs.map((item) => (
+            <p key={item}>{item}</p>
+          ))}
+        </div>
+        <p className="home-value__price">{homeContent.value.price}</p>
+        <a className="figma-light-button figma-light-button--value" href={homeAnchor("demo")}>
+          {homeContent.value.cta}
+        </a>
+      </section>
 
-              <div className="grid gap-3">
-                {homeContent.steps.items.map((step, index) => {
-                  const active = activeStep === index;
+      <section>
+        <h2 className="figma-gradient-heading figma-gradient-heading--center figma-home__section-title" style={{ top: 7458, width: 713, left: 244 }}>
+          {renderLines(homeContent.testimonials.title)}
+        </h2>
+        <p className="figma-home__section-copy" style={{ top: 7544, width: 654, left: 273 }}>
+          {renderLines(homeContent.testimonials.description)}
+        </p>
+        <div className="home-placeholder" style={{ left: 10, top: 7622, width: 1180, height: 548 }}>
+          <span>{renderLines(homeContent.testimonials.placeholder)}</span>
+        </div>
+      </section>
 
-                  return (
-                    <button
-                      key={step.number}
-                      className={`step-card ${active ? "step-card--active" : ""}`}
-                      onClick={() => setActiveStep(index)}
-                      type="button"
-                    >
-                      <span className="step-card__number">{step.number}</span>
-                      <span className="step-card__copy">
-                        <strong>{step.title}</strong>
-                        <em>{step.kicker}</em>
-                        <span>{step.text}</span>
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-            </Reveal>
+      <section>
+        <h2 className="figma-gradient-heading figma-gradient-heading--center figma-home__section-title" style={{ top: 8335, width: 713, left: 244 }}>
+          {homeContent.faq.title}
+        </h2>
+        <p className="figma-home__section-copy" style={{ top: 8386, width: 654, left: 273 }}>
+          {renderLines(homeContent.faq.description)}
+        </p>
+        <div className="home-placeholder" style={{ left: 10, top: 8464, width: 1180, height: 548 }}>
+          <span>{renderLines(homeContent.faq.placeholder)}</span>
+        </div>
+      </section>
 
-            <Reveal delay={0.12}>
-              <motion.article
-                key={activeStepData.number}
-                animate={{ opacity: 1, y: 0 }}
-                initial={{ opacity: 0.72, y: 18 }}
-                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                className="step-stage"
-              >
-                <img alt={activeStepData.title} className="step-stage__image" src={asset(activeStepData.image)} />
-                <div className="step-stage__overlay" />
-                <div className="step-stage__content">
-                  <span className="section-kicker">Шаг {activeStepData.number}</span>
-                  <h3 className="display-title text-[1.7rem] sm:text-[2.2rem]">{activeStepData.title}</h3>
-                  <p className="body-copy max-w-[28rem]">{activeStepData.text}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {product.specs.slice(0, 3).map((spec) => (
-                      <span key={spec} className="mini-chip">
-                        {spec}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </motion.article>
-            </Reveal>
-          </div>
-        </section>
+      <section>
+        <h2 className="figma-gradient-heading figma-gradient-heading--center figma-home__section-title" style={{ top: 9052, width: 886, left: 157 }}>
+          {renderLines(homeContent.support.title)}
+        </h2>
+        <p className="home-support__description">{homeContent.support.description}</p>
+        <a className="figma-light-button figma-light-button--support" href="https://t.me/nivim_support_bot" rel="noreferrer" target="_blank">
+          {homeContent.support.button}
+        </a>
+      </section>
 
-        <section className="section-pad section-pad--soft">
-          <div className="page-shell space-y-8">
-            <Reveal className="section-heading-shell">
-              <p className="section-kicker">Технология, которая не мешает</p>
-              <h2 className="display-title display-title--section">Функции собраны вокруг реального сценария, а не ради списка</h2>
-            </Reveal>
+      <section>
+        <img alt="" aria-hidden="true" className="home-lower__background" src={asset(homeContent.features.background)} />
+        <h2 className="figma-gradient-heading figma-gradient-heading--center figma-home__section-title" style={{ top: 9421, width: 886, left: 157 }}>
+          {renderLines(homeContent.editorial.title)}
+        </h2>
+        <p className="figma-home__section-copy" style={{ top: 9507, width: 507, left: 347 }}>
+          {homeContent.editorial.description}
+        </p>
+        <div className="home-placeholder" style={{ left: 0, top: 9623, width: 1200, height: 548 }}>
+          <span>{renderLines(homeContent.editorial.placeholder)}</span>
+        </div>
+      </section>
 
-            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-              {homeContent.features.map((feature, index) => (
-                <Reveal key={feature.title} delay={index * 0.05}>
-                  <article className="feature-panel h-full">
-                    <img alt="" aria-hidden="true" className="mb-5 h-11 w-11" loading="lazy" src={asset(feature.icon)} />
-                    <h3 className="card-title">{feature.title}</h3>
-                    <p className="body-copy body-copy--small mt-3">{feature.body}</p>
-                  </article>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="section-pad" id="demo">
-          <div className="page-shell">
-            <Reveal className="demo-stage">
-              <div className="demo-stage__copy">
-                <p className="section-kicker">Видео-сценарий</p>
-                <h2 className="display-title display-title--section">{homeContent.demo.title}</h2>
-                <p className="body-copy">{homeContent.demo.body}</p>
-                <div className="flex flex-wrap gap-3">
-                  <Button href={homeAnchor("contacts")}>Запросить демонстрацию</Button>
-                  <Button href={siteMeta.telegramUrl} target="_blank" rel="noreferrer" variant="secondary">
-                    Спросить в Telegram
-                  </Button>
-                </div>
-              </div>
-              <div className="demo-stage__media">
-                <img alt="Сценарий демонстрации NIVIM VIDEL R1" className="demo-stage__image" src={asset(homeContent.demo.image)} />
-                <div className="demo-stage__play" aria-hidden="true">
-                  <span>Видео-презентация</span>
-                </div>
-              </div>
-            </Reveal>
-          </div>
-        </section>
-
-        <section className="section-pad">
-          <div className="page-shell grid gap-6 xl:grid-cols-[0.92fr,1.08fr] xl:items-start">
-            <Reveal className="space-y-5">
-              <p className="section-kicker">Спецификации и цена</p>
-              <h2 className="display-title display-title--section">{homeContent.specs.title}</h2>
-              <p className="body-copy max-w-[38rem]">{homeContent.specs.intro}</p>
-              <p className="caption-copy max-w-[34rem]">{homeContent.specs.note}</p>
-
-              <ul className="grid gap-3">
-                {homeContent.specs.highlights.map((item) => (
-                  <li key={item} className="highlight-item">
-                    {item}
-                  </li>
-                ))}
-              </ul>
-
-              <div className="flex flex-wrap gap-3">
-                <Button onClick={() => addItem(product.id)}>{productQuantity > 0 ? "Добавить ещё один" : "Добавить в корзину"}</Button>
-                <Button href={route("/cart/")} variant="secondary">
-                  Перейти в корзину
-                </Button>
-              </div>
-            </Reveal>
-
-            <Reveal delay={0.12}>
-              <article className="feature-panel overflow-hidden p-5 sm:p-6">
-                <div className="spec-card__media">
-                  <img alt="VIDEL R1" className="mx-auto max-h-[320px] object-contain" loading="lazy" src={asset(homeContent.specs.image)} />
-                </div>
-                <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
-                  <div>
-                    <p className="section-kicker">NIVIM VIDEL R1</p>
-                    <h3 className="card-title mt-3">Честная конфигурация без визуальной каши</h3>
-                  </div>
-                  <p className="spec-card__price">{formatPrice(product.price)}</p>
-                </div>
-                <dl className="spec-grid">
-                  {homeContent.specs.rows.map(([label, value]) => (
-                    <div key={label} className="spec-row">
-                      <dt>{label}</dt>
-                      <dd>{value}</dd>
-                    </div>
-                  ))}
-                </dl>
-              </article>
-            </Reveal>
-          </div>
-        </section>
-
-        <section className="section-pad section-pad--soft">
-          <div className="page-shell space-y-8">
-            <Reveal className="section-heading-shell">
-              <p className="section-kicker">{homeContent.testimonials.eyebrow}</p>
-              <h2 className="display-title display-title--section">{homeContent.testimonials.title}</h2>
-            </Reveal>
-
-            <div className="grid gap-4 lg:grid-cols-3">
-              {homeContent.testimonials.items.map((item, index) => (
-                <Reveal key={item.name} delay={index * 0.06}>
-                  <article className="testimonial-card">
-                    <div className="mb-5 flex items-center gap-4">
-                      <img alt={item.name} className="h-14 w-14 rounded-full object-cover" loading="lazy" src={asset(item.image)} />
-                      <div>
-                        <h3 className="text-base font-semibold text-white">{item.name}</h3>
-                        <p className="text-sm text-white/54">{item.role}</p>
-                      </div>
-                    </div>
-                    <p className="body-copy body-copy--small">“{item.quote}”</p>
-                  </article>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="section-pad">
-          <div className="page-shell grid gap-8 xl:grid-cols-[0.8fr,1.2fr]">
-            <Reveal className="space-y-4">
-              <p className="section-kicker">{homeContent.faq.eyebrow}</p>
-              <h2 className="display-title display-title--section">Частые вопросы</h2>
-              <p className="body-copy max-w-[32rem]">
-                Если вопрос не вошёл в список, не мучайтесь. Лучше написать сразу — так вы быстрее поймёте, подходит ли вам
-                именно ваш сценарий с NIVIM.
-              </p>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <Accordion items={homeContent.faq.items} />
-            </Reveal>
-          </div>
-        </section>
-
-        <section className="section-pad">
-          <div className="page-shell">
-            <Reveal className="support-banner">
-              <div className="space-y-3">
-                <p className="section-kicker">Поддержка NIVIM</p>
-                <h2 className="display-title display-title--section">Не нашли свой вопрос?</h2>
-                <p className="body-copy max-w-[36rem]">
-                  Задайте его в Telegram-боте поддержки NIVIM. Быстро ответим и не заставим продираться через корпоративный
-                  лабиринт.
-                </p>
-              </div>
-              <Button href={siteMeta.telegramUrl} target="_blank" rel="noreferrer">
-                Задать вопрос
-              </Button>
-            </Reveal>
-          </div>
-        </section>
-
-        <section className="section-pad section-pad--soft">
-          <div className="page-shell space-y-8">
-            <Reveal className="section-heading-shell">
-              <p className="section-kicker">{homeContent.editorial.eyebrow}</p>
-              <h2 className="display-title display-title--section">{homeContent.editorial.title}</h2>
-              <p className="body-copy max-w-[48rem]">{homeContent.editorial.intro}</p>
-            </Reveal>
-
-            <div className="grid gap-4 lg:grid-cols-3">
-              {homeContent.editorial.posts.map((post, index) => (
-                <Reveal key={post.title} delay={index * 0.05}>
-                  <article className="editorial-card">
-                    <img alt={post.title} className="editorial-card__image" loading="lazy" src={asset(post.image)} />
-                    <div className="space-y-3">
-                      <div className="editorial-card__meta">
-                        <span>{post.tag}</span>
-                        <span>{post.date}</span>
-                      </div>
-                      <h3 className="card-title">{post.title}</h3>
-                      <p className="body-copy body-copy--small">{post.excerpt}</p>
-                    </div>
-                  </article>
-                </Reveal>
-              ))}
-            </div>
-
-            <Reveal>
-              <Button href={route("/blog/")} variant="secondary">
-                Перейти в журнал
-              </Button>
-            </Reveal>
-          </div>
-        </section>
-
-        <section className="section-pad pb-0">
-          <div className="page-shell">
-            <Reveal className="cta-panel">
-              <div className="space-y-4">
-                <p className="section-kicker">{homeContent.cta.eyebrow}</p>
-                <h2 className="display-title text-3xl sm:text-4xl">{homeContent.cta.title}</h2>
-                <p className="body-copy max-w-[42rem]">{homeContent.cta.body}</p>
-              </div>
-
-              <div className="flex flex-wrap gap-3 lg:justify-end">
-                <Button onClick={() => addItem(product.id)}>{productQuantity > 0 ? "Открыть корзину" : "Добавить в корзину"}</Button>
-                <Button href={homeAnchor("contacts")} variant="secondary">
-                  Связаться
-                </Button>
-              </div>
-            </Reveal>
-          </div>
-        </section>
-      </main>
-    </PageShell>
+      <div id="final-cta" style={{ position: "absolute", inset: "10527px 0 0" }}>
+        <HomeFinalFooter />
+      </div>
+    </Artboard>
   );
-}
-
-function sitePrice() {
-  return formatPrice(product.price);
 }

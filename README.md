@@ -1,126 +1,96 @@
 # NIVIM
 
-NIVIM — multi-page React-сайт с premium dark UI, собранный на `Vite + React + TypeScript + Tailwind CSS + Framer Motion` и подготовленный для GitHub Pages.
+Literal React MPA implementation of the Figma block `23120:*` from `NIVIM--Copy-`.
 
-Проект опирается на Figma-блок `Дизайн`, но не копирует его механически: home следует утверждённой структуре, внутренние страницы собраны в том же визуальном языке, а корзина спроектирована как новый product-grade экран.
+The site is intentionally built **1:1 against the selected Figma source**, including the current placeholder zones and the raw `Glamus`/draft copy that exists inside those frames. This repo does not redesign or editorially “fix” that content.
 
-## Что реализовано
-
-- `React MPA`, а не SPA: каждый route публикуется как отдельный HTML entrypoint
-- единая дизайн-система: display/body typography, color tokens, card surfaces, motion, inputs и CTA
-- полноценный storefront flow:
-  - добавление товара с главной
-  - cart badge в header/footer
-  - отдельная страница корзины `/cart/`
-  - хранение корзины в `localStorage`
-  - prototype checkout state без сервера и фейковой оплаты
-- общие product/UI-компоненты:
-  - sticky header
-  - mobile drawer
-  - lead modal
-  - FAQ accordion
-  - legal tabs
-  - reveal-анимации и hover/focus/active states
-- SEO-обвязка:
-  - meta tags
-  - Open Graph
-  - favicon
-  - manifest
-
-## Стек
+## Stack
 
 - `Vite 8`
 - `React 19`
 - `TypeScript`
 - `Tailwind CSS 4`
-- `Framer Motion`
 
-Такой стек здесь рационален: он даёт быстрый MPA-build под GitHub Pages, нормальную компонентную архитектуру, типизацию контента и состояний, а также аккуратную анимацию без перегруза зависимостями.
+The project is published as a **multi-page app**, not an SPA, so GitHub Pages serves real files for every route.
 
-## Маршруты
+## Routes
 
 - `/`
 - `/o-kompanii/`
-- `/podderjka/`
+- `/instrukcii/`
 - `/blog/`
-- `/privacy-policy/`
-- `/cart/`
 - `/404.html`
 
-## Локальный запуск
+## Local run
 
 ```bash
 npm install
 npm run dev
 ```
 
-Dev server поднимается на `http://localhost:4173/`.
+The dev server runs on `http://localhost:4173/`.
 
-## Проверка и сборка
+## Checks and build
 
-Полная локальная проверка:
+Type-check + production build:
 
 ```bash
 npm run check
 ```
 
-Сборка под GitHub Pages с base path `/nivim/`:
+GitHub Pages build with `/nivim/` base path:
 
 ```bash
 VITE_BASE_PATH=/nivim/ npm run build
 ```
 
-Локальный preview production-сборки:
+Local production preview:
 
 ```bash
 VITE_BASE_PATH=/nivim/ npm run build
 npm run preview
 ```
 
-## Деплой
-
-GitHub Pages публикуется через workflow [deploy-pages.yml](/Users/egorovn/Desktop/Проекты/NIVIM/.github/workflows/deploy-pages.yml).
-
-Схема деплоя:
-
-1. `npm ci`
-2. `npm run build`
-3. публикация `dist/` через GitHub Pages Actions
-
-Base path автоматически подхватывается из имени GitHub-репозитория в CI, поэтому отдельные серверные маршруты не нужны.
-
-## Структура проекта
+## Project structure
 
 ```text
 src/
-  commerce/    cart state и storefront logic
-  components/  shared UI
-  content/     typed content/config
-  entries/     page entry points для MPA
-  lib/         helpers
-  pages/       page-level composition
-  styles/      global design system
+  app/          mount helper
+  components/   literal artboard/layout components
+  content/      Figma-derived text and asset map
+  entries/      MPA entry points
+  lib/          shared helpers
+  pages/        route-level page composition
+  styles/       global CSS for the literal Figma shell
 
-cart/
-blog/
-o-kompanii/
-podderjka/
-privacy-policy/
-  index.html   HTML entrypoints для GitHub Pages
+index.html
+o-kompanii/index.html
+instrukcii/index.html
+blog/index.html
+404.html
 
 public/assets/
-  tilda/       брендовые ассеты, изображения, favicon
-  site.webmanifest
+  figma/        exported Figma assets used by the implementation
+  tilda/        local media already present in the repo
 ```
 
-## Основные сценарии
+## Notes about incomplete Figma areas
 
-- Добавить `NIVIM VIDEL R1` в корзину с home CTA
-- Открыть `/cart/`, изменить количество, удалить товар, посмотреть subtotal/total
-- Открыть prototype checkout preview без реального order/payment flow
-- Использовать lead modal для `mailto`-контакта или перейти в Telegram
+The selected `23120:*` set contains intentionally unfinished zones:
 
-## Публикация
+- `фото`
+- `фото/видео`
+- `Анимация код`
+- `стандартный блок тильды`
 
-- Production URL: [https://egrvn.github.io/nivim/](https://egrvn.github.io/nivim/)
-- Репозиторий: [https://github.com/egrvn/nivim](https://github.com/egrvn/nivim)
+Those blocks are kept visually in place and minimally materialized so the page stays structurally complete without inventing a redesign.
+
+## Deployment
+
+GitHub Pages is published through [deploy-pages.yml](/Users/egorovn/Desktop/Проекты/NIVIM/.github/workflows/deploy-pages.yml).
+
+Base path is derived automatically in CI from the repository name, or can be forced locally with:
+
+```bash
+VITE_BASE_PATH=/nivim/
+```

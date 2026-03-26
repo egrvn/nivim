@@ -22,10 +22,8 @@ export default defineConfig({
       input: {
         home: resolve(__dirname, "index.html"),
         about: resolve(__dirname, "o-kompanii/index.html"),
-        support: resolve(__dirname, "podderjka/index.html"),
+        instructions: resolve(__dirname, "instrukcii/index.html"),
         blog: resolve(__dirname, "blog/index.html"),
-        privacy: resolve(__dirname, "privacy-policy/index.html"),
-        cart: resolve(__dirname, "cart/index.html"),
         notFound: resolve(__dirname, "404.html"),
       },
     },
