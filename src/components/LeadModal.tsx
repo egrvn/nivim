@@ -93,22 +93,22 @@ export function LeadModal({ open, onClose }: LeadModalProps) {
     event.preventDefault();
 
     if (state.name.trim().length < 2) {
-      setError("Нужно имя. Иначе письмо будет выглядеть как спам, а не как нормальный запрос.");
+      setError("Укажите имя, чтобы запрос выглядел как нормальный диалог, а не пустая форма.");
       return;
     }
 
     if (state.contact.trim().length < 4) {
-      setError("Нужен рабочий контакт. Иначе это просто красивый клик без продолжения.");
+      setError("Нужен рабочий контакт. Иначе дальше просто некуда писать.");
       return;
     }
 
     if (!state.consent) {
-      setError("Без согласия на обработку данных форма дальше не пойдёт.");
+      setError("Нужно согласие на обработку данных, иначе форма не отправится.");
       return;
     }
 
     setError("");
-    setStatus("Открываем почтовый клиент. Если не сработало, напишите нам напрямую в Telegram.");
+    setStatus("Открываем почтовый клиент. Если не сработает, лучше сразу напишите нам в Telegram.");
 
     window.location.href = buildLeadMailto({
       name: state.name.trim(),
@@ -152,11 +152,11 @@ export function LeadModal({ open, onClose }: LeadModalProps) {
             <div className="space-y-4">
               <p className="section-kicker">Запросить демонстрацию</p>
               <h2 className="display-title text-3xl sm:text-4xl" id="lead-modal-title">
-                Покажем NIVIM без лишней технодрамы
+                Покажем NIVIM в реальном сценарии
               </h2>
               <p className="max-w-2xl text-sm leading-7 text-[var(--color-text-muted)] sm:text-base">
-                Оставьте имя и удобный канал. Дальше откроем готовое письмо и не заставим вас продираться через бессмысленный
-                form-flow ради form-flow.
+                Оставьте имя и удобный канал связи. Дальше откроем готовое письмо без лишней бюрократии и не будем превращать
+                запрос в длинный form-flow ради form-flow.
               </p>
             </div>
 

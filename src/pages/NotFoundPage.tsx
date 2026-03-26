@@ -10,21 +10,17 @@ export function NotFoundPage() {
     <PageShell pageKey="notFound">
       <main>
         <section className="hero-section hero-section--inner">
-          <div className="page-shell space-y-5">
-            <Reveal>
+          <div className="page-shell">
+            <Reveal className="mission-panel max-w-[48rem]">
               <p className="section-kicker">{notFoundContent.eyebrow}</p>
-            </Reveal>
-            <Reveal delay={0.05}>
               <h1 className="display-title display-title--hero">{renderLines(notFoundContent.title)}</h1>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <p className="lead-copy max-w-[42rem]">{notFoundContent.lead}</p>
-            </Reveal>
-            <Reveal delay={0.15} className="flex flex-wrap gap-3">
-              <Button href={route("/")}>На главную</Button>
-              <Button href={route("/blog/")} variant="secondary">
-                В журнал
-              </Button>
+              <p className="lead-copy mt-5">{notFoundContent.lead}</p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Button href={route("/")}>На главную</Button>
+                <Button href={route("/blog/")} variant="secondary">
+                  В журнал
+                </Button>
+              </div>
             </Reveal>
           </div>
         </section>

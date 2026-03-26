@@ -1,4 +1,4 @@
-import type { ButtonHTMLAttributes, PropsWithChildren } from "react";
+import type { AnchorHTMLAttributes, ButtonHTMLAttributes, PropsWithChildren } from "react";
 
 import { motion } from "framer-motion";
 
@@ -9,7 +9,9 @@ type BaseProps = PropsWithChildren<{
 
 type LinkProps = BaseProps & {
   href: string;
-  onClick?: never;
+  onClick?: AnchorHTMLAttributes<HTMLAnchorElement>["onClick"];
+  rel?: AnchorHTMLAttributes<HTMLAnchorElement>["rel"];
+  target?: AnchorHTMLAttributes<HTMLAnchorElement>["target"];
 };
 
 type NativeButtonProps = BaseProps & {
@@ -35,22 +37,35 @@ export function Button(props: ButtonProps) {
   const className = `${baseClassName} ${variants[variant]} ${props.className ?? ""}`;
 
   if ("href" in props && props.href) {
+    const { href, onClick, rel, target, children } = props;
+
     return (
-      <motion.a whileTap={{ scale: 0.98 }} whileHover={{ scale: 1.01 }} className={className} href={props.href}>
-        {props.children}
+      <motion.a
+        whileTap={{ scale: 0.98 }}
+        whileHover={{ scale: 1.01 }}
+        className={className}
+        href={href}
+        onClick={onClick}
+        rel={rel}
+        target={target}
+      >
+        {children}
       </motion.a>
     );
   }
+
+  const buttonProps = props as NativeButtonProps;
+  const { onClick, type, children } = buttonProps;
 
   return (
     <motion.button
       whileTap={{ scale: 0.98 }}
       whileHover={{ scale: 1.01 }}
       className={className}
-      onClick={props.onClick}
-      type={("type" in props ? props.type : undefined) ?? "button"}
+      onClick={onClick}
+      type={type ?? "button"}
     >
-      {props.children}
+      {children}
     </motion.button>
   );
 }
