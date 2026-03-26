@@ -1,13 +1,30 @@
 # NIVIM
 
-Статический multi-page сайт NIVIM для GitHub Pages. Публикуемая версия больше не зависит от React, Tailwind или Tilda runtime как от основного рендер-слоя: страницы собираются из hand-authored шаблонов, общего брендового CSS и клиентского JS.
+React multi-page сайт NIVIM, собранный на `Vite + React + TypeScript + Tailwind CSS + Framer Motion` и адаптированный под GitHub Pages.
+
+## Что внутри
+
+- `React MPA`, а не SPA: каждая страница публикуется как отдельный HTML-файл
+- единый UI-слой с общими layout-компонентами, modal, accordion и tabs
+- контентный слой на базе текущего продукта и структуры из Figma-блока `Дизайн`
+- базовая SEO-обвязка: meta tags, Open Graph, favicon, manifest
 
 ## Стек
 
-- `Node.js`
-- статическая `MPA`-архитектура
-- общий renderer на `ESM`
-- `GitHub Pages`
+- `Vite`
+- `React 19`
+- `TypeScript`
+- `Tailwind CSS 4`
+- `Framer Motion`
+
+## Маршруты
+
+- `/`
+- `/o-kompanii/`
+- `/podderjka/`
+- `/blog/`
+- `/privacy-policy/`
+- `/404.html`
 
 ## Локальный запуск
 
@@ -16,50 +33,51 @@ npm install
 npm run dev
 ```
 
-Локальный preview поднимает простой HTTP-сервер и предварительно собирает `dist/`.
+По умолчанию dev server поднимается на `http://localhost:4173/`.
 
-## Production build
+## Проверка и сборка
 
-Для сборки под GitHub Pages c base path `/nivim/`:
+Обычная проверка:
+
+```bash
+npm run check
+```
+
+Сборка под GitHub Pages с base path `/nivim/`:
 
 ```bash
 VITE_BASE_PATH=/nivim/ npm run build
 ```
 
-Результат оказывается в `dist/`.
-
 ## Деплой
 
-Публикация настроена через GitHub Actions в [.github/workflows/deploy-pages.yml](/Users/egorovn/Desktop/Проекты/NIVIM/.github/workflows/deploy-pages.yml).
+GitHub Pages публикуется через workflow:
 
-- ветка: `main`
-- output: `dist`
-- base path: `/nivim/`
-- маршруты публикуются как реальные HTML-страницы:
-  - `/`
-  - `/o-kompanii/`
-  - `/podderjka/`
-  - `/blog/`
-  - `/privacy-policy/`
+[`/Users/egorovn/Desktop/Проекты/NIVIM/.github/workflows/deploy-pages.yml`](/Users/egorovn/Desktop/Проекты/NIVIM/.github/workflows/deploy-pages.yml)
 
-## Исходники
+Логика простая:
+
+1. `npm ci`
+2. `npm run build`
+3. публикация `dist/` в GitHub Pages
+
+## Структура проекта
 
 ```text
-site-src/
-  data/        контент и структура страниц
-  scripts/     клиентские интерактивы
-  styles/      брендовые токены и компоненты
-  templates/   HTML renderer и общие partials
-
-scripts/
-  build-static-site.mjs
-  dev-static-site.mjs
+src/
+  app/         bootstrap и page shell
+  components/  shared UI
+  content/     контент и маршруты
+  entries/     entry points для каждой HTML-страницы
+  lib/         helpers
+  pages/       page-level composition
+  styles/      global design system
 
 public/assets/
-  fonts/
-  tilda/
+  tilda/       изображения, иконки и favicon
+  site.webmanifest
 ```
 
 ## Примечание
 
-Каталог `src/` остаётся в репозитории как след предыдущих итераций, но не участвует в публикации сайта. Канонический publish path собирается только из `site-src/`, `public/assets/` и `scripts/`.
+`site-src/data/site-data.mjs` оставлен как transitional source для части контентных данных и copy blocks. Старый static renderer и Tilda-based publish path из проекта убраны.

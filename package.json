@@ -4,9 +4,24 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "node scripts/dev-static-site.mjs",
-    "build": "node scripts/build-static-site.mjs",
-    "preview": "node scripts/dev-static-site.mjs",
-    "check": "node scripts/build-static-site.mjs"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1 --port 4173",
+    "check": "tsc --noEmit && vite build"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.2.2",
+    "framer-motion": "^12.38.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "tailwindcss": "^4.2.2"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react-swc": "^4.3.0",
+    "typescript": "^6.0.2",
+    "vite": "^8.0.3"
   }
 }
