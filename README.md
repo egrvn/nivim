@@ -1,8 +1,14 @@
 # NIVIM
 
-Literal React MPA implementation of the Figma block `23120:*` from `NIVIM--Copy-`.
+Polished Figma-led landing for `NIVIM / VIDEL R1`.
 
-The site is intentionally built **1:1 against the selected Figma source**, including the current placeholder zones and the raw `Glamus`/draft copy that exists inside those frames. This repo does not redesign or editorially “fix” that content.
+The current implementation uses:
+
+- layout and section rhythm from the main site Figma file `Wqxtf3Cd7vatdGp0rN5BQC`
+  - primary home reference: `22927:70`
+- brand palette, logo behavior, and typography roles from the additional brand-style file `FOLwB1LoXNl01mTSEbCNOq`
+
+The site is built as a **React multi-page app**, so GitHub Pages serves real files per route instead of a fragile SPA shell.
 
 ## Stack
 
@@ -10,16 +16,22 @@ The site is intentionally built **1:1 against the selected Figma source**, inclu
 - `React 19`
 - `TypeScript`
 - `Tailwind CSS 4`
-
-The project is published as a **multi-page app**, not an SPA, so GitHub Pages serves real files for every route.
+- `Framer Motion`
 
 ## Routes
+
+Canonical routes:
 
 - `/`
 - `/o-kompanii/`
 - `/instrukcii/`
 - `/blog/`
+- `/privacy-policy/`
 - `/404.html`
+
+Compatibility alias:
+
+- `/podderjka/` → same screen as `/instrukcii/`
 
 ## Local run
 
@@ -28,7 +40,7 @@ npm install
 npm run dev
 ```
 
-The dev server runs on `http://localhost:4173/`.
+The local app runs on `http://localhost:4173/`.
 
 ## Checks and build
 
@@ -56,34 +68,36 @@ npm run preview
 ```text
 src/
   app/          mount helper
-  components/   literal artboard/layout components
-  content/      Figma-derived text and asset map
+  components/   shared UI and page shell
+  content/      typed content and asset map
   entries/      MPA entry points
-  lib/          shared helpers
+  lib/          route + asset helpers
   pages/        route-level page composition
-  styles/       global CSS for the literal Figma shell
+  styles/       global tokens and shared CSS
 
 index.html
 o-kompanii/index.html
 instrukcii/index.html
+podderjka/index.html
 blog/index.html
+privacy-policy/index.html
 404.html
 
 public/assets/
   figma/        exported Figma assets used by the implementation
-  tilda/        local media already present in the repo
+  tilda/        local media kept from the original repo
 ```
 
-## Notes about incomplete Figma areas
+## Figma workspaces
 
-The selected `23120:*` set contains intentionally unfinished zones:
+The implementation now also writes back into the main Figma file:
 
-- `фото`
-- `фото/видео`
-- `Анимация код`
-- `стандартный блок тильды`
+- page `Codex polished`
+  - `Главная / polished ref`
+  - `Brand bridge`
+  - `UI polish kit`
 
-Those blocks are kept visually in place and minimally materialized so the page stays structurally complete without inventing a redesign.
+This page is used as a working polish layer on top of the raw design sources.
 
 ## Deployment
 

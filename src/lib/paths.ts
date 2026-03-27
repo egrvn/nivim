@@ -1,6 +1,6 @@
 const baseUrl = import.meta.env.BASE_URL;
 
-export function route(path: string) {
+export function route(path = "/") {
   if (!path || path === "/") {
     return baseUrl;
   }
@@ -9,14 +9,14 @@ export function route(path: string) {
 }
 
 export function homeAnchor(id: string) {
-  return `${baseUrl}#${id.replace(/^#/, "")}`;
+  return `${route("/") }#${id.replace(/^#/, "")}`;
 }
 
 export function asset(path: string) {
   return route(path.replace(/^assets\//, ""));
 }
 
-export function absoluteUrl(path: string) {
+export function absoluteUrl(path = "/") {
   const cleanPath = path === "/" ? "" : path.replace(/^\//, "");
   return cleanPath ? `https://egrvn.github.io/nivim/${cleanPath}` : "https://egrvn.github.io/nivim/";
 }
