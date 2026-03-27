@@ -22,7 +22,6 @@
   --text-muted: rgba(227, 239, 239, 0.48);
   --accent: #1a3e72;
   --accent-soft: #e3efef;
-  --accent-violet: #6c67ff;
   --accent-shadow: 0 28px 90px rgba(6, 10, 22, 0.56);
   --section-space: clamp(4.75rem, 10vw, 8rem);
 }
@@ -201,6 +200,15 @@ body::-webkit-scrollbar-thumb {
   border: 1px solid rgba(227, 239, 239, 0.08);
   box-shadow: var(--accent-shadow);
   backdrop-filter: blur(20px);
+}
+
+.nav-shell {
+  background:
+    linear-gradient(180deg, rgba(227, 239, 239, 0.07), rgba(227, 239, 239, 0.02)),
+    rgba(10, 11, 16, 0.7);
+  border: 1px solid rgba(227, 239, 239, 0.1);
+  box-shadow: 0 18px 56px rgba(4, 6, 20, 0.32);
+  backdrop-filter: blur(22px);
 }
 
 @media (max-width: 1024px) {

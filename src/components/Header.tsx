@@ -39,10 +39,10 @@ export function Header({ onOpenLead, page }: HeaderProps) {
     <>
       <header className="pointer-events-none sticky top-0 z-50 px-4 pb-4 pt-4 sm:px-6 lg:px-8">
         <div
-          className={`pointer-events-auto mx-auto flex max-w-[1220px] items-center justify-between gap-4 rounded-full border px-4 py-3 transition-all duration-300 sm:px-5 ${
+          className={`pointer-events-auto mx-auto flex max-w-[1220px] items-center justify-between gap-4 rounded-full px-4 py-3.5 transition-all duration-300 sm:px-5 ${
             scrolled
-              ? "border-[rgba(227,239,239,0.12)] bg-[rgba(10,11,16,0.76)] shadow-[0_16px_48px_rgba(4,6,20,0.32)] backdrop-blur-xl"
-              : "border-[rgba(227,239,239,0.08)] bg-[rgba(227,239,239,0.05)] backdrop-blur-lg"
+              ? "nav-shell"
+              : "border-[rgba(227,239,239,0.08)] bg-[rgba(227,239,239,0.04)] backdrop-blur-lg"
           }`}
         >
           <Logo light />
@@ -58,7 +58,7 @@ export function Header({ onOpenLead, page }: HeaderProps) {
               return (
                 <a
                   key={item.label}
-                  className={`text-sm font-medium transition-colors duration-200 ${activeRoute ? "text-[var(--accent-soft)]" : "text-[var(--text-soft)] hover:text-[var(--accent-soft)]"}`}
+                  className={`text-[12px] font-semibold uppercase tracking-[0.18em] transition-colors duration-200 ${activeRoute ? "text-[var(--accent-soft)]" : "text-[var(--text-soft)] hover:text-[var(--accent-soft)]"}`}
                   href={normalizeHref(item.href)}
                 >
                   {item.label}
@@ -69,7 +69,7 @@ export function Header({ onOpenLead, page }: HeaderProps) {
 
           <div className="flex items-center gap-3">
             <button
-              className="hidden rounded-full bg-[var(--accent-soft)] px-5 py-3 text-sm font-semibold text-[var(--page-bg)] transition-transform duration-200 hover:-translate-y-0.5 md:inline-flex"
+              className="hidden rounded-full bg-[var(--accent-soft)] px-5 py-3 text-[12px] font-semibold uppercase tracking-[0.14em] text-[var(--page-bg)] transition-transform duration-200 hover:-translate-y-0.5 md:inline-flex"
               type="button"
               onClick={onOpenLead}
             >
@@ -111,7 +111,7 @@ export function Header({ onOpenLead, page }: HeaderProps) {
                 {navigation.primary.map((item) => (
                   <a
                     key={item.label}
-                    className="rounded-2xl px-4 py-3 text-base font-medium text-[var(--text-soft)] transition-colors duration-200 hover:bg-white/8 hover:text-[var(--accent-soft)]"
+                    className="rounded-2xl px-4 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-[var(--text-soft)] transition-colors duration-200 hover:bg-white/8 hover:text-[var(--accent-soft)]"
                     href={normalizeHref(item.href)}
                     onClick={() => setOpen(false)}
                   >
@@ -120,7 +120,7 @@ export function Header({ onOpenLead, page }: HeaderProps) {
                 ))}
               </nav>
               <button
-                className="mt-5 inline-flex min-h-12 w-full items-center justify-center rounded-full bg-[var(--accent-soft)] text-sm font-semibold text-[var(--page-bg)]"
+                className="mt-5 inline-flex min-h-12 w-full items-center justify-center rounded-full bg-[var(--accent-soft)] text-[12px] font-semibold uppercase tracking-[0.14em] text-[var(--page-bg)]"
                 type="button"
                 onClick={() => {
                   setOpen(false);

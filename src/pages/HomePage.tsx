@@ -46,7 +46,7 @@ function HeroSection() {
         <Reveal className="relative flex justify-center lg:justify-end lg:pt-4" delay={0.12}>
           <div className="hero-visual surface-glass relative w-full max-w-[38rem] overflow-visible rounded-[2.25rem] p-4 sm:p-6">
             <div className="absolute inset-x-10 top-0 h-40 rounded-full bg-[radial-gradient(circle_at_top,rgba(26,62,114,0.35),transparent_72%)]" aria-hidden="true" />
-            <div className="relative overflow-hidden rounded-[1.85rem] bg-[radial-gradient(circle_at_top,rgba(91,33,182,0.22),rgba(8,10,19,0.22)),linear-gradient(180deg,#070910,#0f1020)] px-6 pb-4 pt-14">
+            <div className="relative overflow-hidden rounded-[1.85rem] bg-[radial-gradient(circle_at_top,rgba(26,62,114,0.28),rgba(8,10,19,0.22)),linear-gradient(180deg,#070910,#0f1020)] px-6 pb-4 pt-14">
               <img alt="" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover opacity-70 mix-blend-screen" src={asset(homeContent.hero.background)} />
               <div className="relative z-10 flex justify-center">
                 <img alt="Проектор NIVIM VIDEL R1" className="w-full max-w-[30rem] drop-shadow-[0_36px_72px_rgba(26,29,70,0.5)]" src={asset(homeContent.hero.device)} />
@@ -72,7 +72,12 @@ function ScenariosSection() {
             <Reveal key={card.title} delay={index * 0.05}>
               <article className="group surface-glass relative overflow-hidden rounded-[2rem]">
                 <div className="relative aspect-[1.54] overflow-hidden">
-                  <img alt={card.title} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" src={asset(card.image)} />
+                  <img
+                    alt={card.title}
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    src={asset(card.image)}
+                    style={{ objectPosition: card.imagePosition ?? "center" }}
+                  />
                   <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,9,16,0.05),rgba(7,9,16,0.74)_80%)]" />
                 </div>
                 <div className="absolute inset-x-0 bottom-0 p-6 sm:p-7">
@@ -158,7 +163,7 @@ function StepsSection() {
                 <motion.img
                   key={current.image}
                   alt={current.title}
-                  className="absolute inset-0 h-full w-full object-cover"
+                  className="absolute inset-0 h-full w-full object-contain p-6 sm:p-8"
                   src={asset(current.image)}
                   initial={{ opacity: 0, scale: 1.03 }}
                   animate={{ opacity: 1, scale: 1 }}

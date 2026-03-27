@@ -11,6 +11,7 @@ export type ScenarioCard = {
   description: string;
   quote: string;
   image: string;
+  imagePosition?: string;
 };
 
 export type BenefitCard = {
@@ -117,6 +118,7 @@ export const homeContent = {
         description: "Чистая картинка, простое подключение и сценарий, в котором техника не отвлекает от главного.",
         quote: "Когда важно, чтобы всё просто работало.",
         image: "figma/scenario-04.png",
+        imagePosition: "82% center",
       },
     ] as ScenarioCard[],
   },
@@ -152,7 +154,7 @@ export const homeContent = {
         title: "Включи",
         kicker: "Никаких ручных регулировок",
         description: "Проектор сам определяет положение и настраивает автофокус, чтобы картинка сразу выглядела аккуратно.",
-        image: "figma/step-01.png",
+        image: "tilda/tild6166-6333-4363-a231-636636633838__magnifics_upscale-zt.png",
       },
       {
         number: "02",

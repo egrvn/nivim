@@ -11,7 +11,7 @@ export function Logo({ light = false }: LogoProps) {
       href={route("/")}
       aria-label="NIVIM"
     >
-      <span className="font-[var(--font-display)] text-[1.22rem] tracking-[0.38em] text-current uppercase">NIVIM</span>
+      <span className="font-[var(--font-display)] text-[1.34rem] tracking-[0.31em] text-current uppercase sm:text-[1.42rem]">NIVIM</span>
     </a>
   );
 }
