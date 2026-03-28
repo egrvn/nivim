@@ -23,6 +23,7 @@ export function Header({ page }: HeaderProps) {
   const { itemCount } = useCart();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeAnchor, setActiveAnchor] = useState<"product" | "contacts">("product");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -36,6 +37,29 @@ export function Header({ page }: HeaderProps) {
     setOpen(false);
   }, [page]);
 
+  useEffect(() => {
+    if (page !== "home") {
+      return;
+    }
+
+    const onScroll = () => {
+      const footer = document.getElementById("contacts");
+
+      if (!footer) {
+        setActiveAnchor("product");
+        return;
+      }
+
+      const footerTop = footer.getBoundingClientRect().top;
+      const viewportHeight = window.innerHeight || 0;
+      setActiveAnchor(footerTop < viewportHeight * 0.55 ? "contacts" : "product");
+    };
+
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [page]);
+
   return (
     <>
       <header className="site-header">
@@ -46,7 +70,7 @@ export function Header({ page }: HeaderProps) {
             {navigation.primary.map((item) => {
               const href = normalizeHref(item.href);
               const active =
-                (page === "home" && item.href === "/#product") ||
+                (page === "home" && item.href === `/#${activeAnchor}`) ||
                 (page === "about" && item.href === "/o-kompanii/") ||
                 (page === "instructions" && item.href === "/instrukcii/") ||
                 (page === "blog" && item.href === "/blog/");

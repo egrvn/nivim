@@ -51,7 +51,7 @@ export function Footer({ ctaDescription, ctaHref, ctaLabel, ctaTitle, showCta = 
 
       <section className="site-footer__meta">
         <p>{footerContent.copyright}</p>
-        <p>{footerContent.credit}</p>
+        {footerContent.credit ? <p>{footerContent.credit}</p> : null}
       </section>
 
       <div className="site-footer__wordmark" aria-hidden="true">
