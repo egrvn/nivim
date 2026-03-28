@@ -1,7 +1,9 @@
 import { StrictMode, type ReactNode } from "react";
 import { createRoot } from "react-dom/client";
 
+import { CartProvider } from "../commerce/cart";
 import "../styles/globals.css";
+import "../styles/literal.css";
 
 export function mount(element: ReactNode) {
   const root = document.getElementById("root");
@@ -12,7 +14,7 @@ export function mount(element: ReactNode) {
 
   createRoot(root).render(
     <StrictMode>
-      {element}
+      <CartProvider>{element}</CartProvider>
     </StrictMode>,
   );
 }

@@ -26,6 +26,7 @@ export default defineConfig({
         supportAlias: resolve(__dirname, "podderjka/index.html"),
         blog: resolve(__dirname, "blog/index.html"),
         privacy: resolve(__dirname, "privacy-policy/index.html"),
+        cart: resolve(__dirname, "cart/index.html"),
         notFound: resolve(__dirname, "404.html"),
       },
     },

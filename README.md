@@ -1,14 +1,17 @@
 # NIVIM
 
-Polished Figma-led landing for `NIVIM / VIDEL R1`.
+Literal Figma-driven React MPA for `NIVIM / VIDEL R1`.
 
-The current implementation uses:
+The current implementation follows the `23120:*` block from the Figma file `Wqxtf3Cd7vatdGp0rN5BQC` as the canonical source for:
 
-- layout and section rhythm from the main site Figma file `Wqxtf3Cd7vatdGp0rN5BQC`
-  - primary home reference: `22927:70`
-- brand palette, logo behavior, and typography roles from the additional brand-style file `FOLwB1LoXNl01mTSEbCNOq`
+- `/` → `23120:218`
+- `/o-kompanii/` → `23120:146`
+- `/instrukcii/` → `23120:169`
+- `/blog/` → `23120:197`
 
-The site is built as a **React multi-page app**, so GitHub Pages serves real files per route instead of a fragile SPA shell.
+The only screen that is not present in the source Figma block is `/cart/`. It is implemented separately, but in the same visual language and with working client-side cart + checkout form behavior.
+
+The site is built as a **React multi-page app**, so GitHub Pages serves real files per route instead of an SPA shell.
 
 ## Stack
 
@@ -20,12 +23,13 @@ The site is built as a **React multi-page app**, so GitHub Pages serves real fil
 
 ## Routes
 
-Canonical routes:
+Routes:
 
 - `/`
 - `/o-kompanii/`
 - `/instrukcii/`
 - `/blog/`
+- `/cart/`
 - `/privacy-policy/`
 - `/404.html`
 
@@ -69,7 +73,8 @@ npm run preview
 src/
   app/          mount helper
   components/   shared UI and page shell
-  content/      typed content and asset map
+  commerce/     cart state and checkout helpers
+  content/      typed content and Figma-derived asset map
   entries/      MPA entry points
   lib/          route + asset helpers
   pages/        route-level page composition
@@ -80,24 +85,27 @@ o-kompanii/index.html
 instrukcii/index.html
 podderjka/index.html
 blog/index.html
+cart/index.html
 privacy-policy/index.html
 404.html
 
 public/assets/
-  figma/        exported Figma assets used by the implementation
+  figma/        exported assets used by the literal home build
+  figma-literal/ exact exported screenshots from Figma inner pages
   tilda/        local media kept from the original repo
 ```
 
-## Figma workspaces
+## Notes
 
-The implementation now also writes back into the main Figma file:
-
-- page `Codex polished`
-  - `Главная / polished ref`
-  - `Brand bridge`
-  - `UI polish kit`
-
-This page is used as a working polish layer on top of the raw design sources.
+- Desktop fidelity is prioritized.
+- `privacy-policy` and `404` are utility pages and do not have literal counterparts inside `23120:*`.
+- The cart screen is a new route with:
+  - add/remove items
+  - quantity changes
+  - subtotal / total
+  - checkout form
+  - basic validation
+  - `mailto` submission + Telegram backup CTA
 
 ## Deployment
 
