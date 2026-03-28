@@ -1,63 +1,77 @@
-import { Artboard } from "../components/Artboard";
-import { TopStrip } from "../components/TopStrip";
-import { instructionsContent } from "../content/figma23120";
+import { PageShell } from "../components/PageShell";
+import { instructionsContent } from "../content/site";
 import { asset } from "../lib/paths";
-import { renderLines } from "../lib/text";
+
+function InstructionsHero() {
+  return (
+    <section className="inner-page-hero">
+      <div className="site-container">
+        <div className="inner-page-hero__frame">
+          <img alt="" aria-hidden="true" className="inner-page-hero__image" src={asset("figma/inner-hero.png")} />
+          <div className="inner-page-hero__overlay" />
+          <p className="site-gradient-heading site-gradient-heading--center inner-page-hero__title">{instructionsContent.hero.title}</p>
+          <p className="inner-page-hero__description">{instructionsContent.hero.description}</p>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export function InstructionsPage() {
   return (
-    <Artboard className="figma-inner-page" height={2212}>
-      <div className="figma-inner-page__background" />
-      <TopStrip page="instructions" />
+    <PageShell page="instructions">
+      <InstructionsHero />
 
-      <section>
-        <div className="inner-hero-frame" aria-hidden="true">
-          <img alt="" className="inner-hero-image" src={asset("figma-literal/instructions-hero.png")} />
+      <section className="inner-wave-section">
+        <div className="site-container">
+          <div className="inner-wave-section__media">
+            <img alt="" aria-hidden="true" src={asset("figma/inner-wave.png")} />
+          </div>
         </div>
-        <h1 className="figma-gradient-heading figma-gradient-heading--center figma-inner-page__title" style={{ top: 86, width: 1014, left: 93 }}>
-          {renderLines(instructionsContent.title)}
-        </h1>
       </section>
 
-      <section>
-        <div className="inner-wave-frame" aria-hidden="true">
-          <img alt="" className="inner-wave-image" src={asset("figma-literal/instructions-wave.png")} />
+      <section className="inner-page-section">
+        <div className="site-container">
+          <div className="instructions-grid">
+            {instructionsContent.quickStart.map((item) => (
+              <article key={item.number} className="instruction-card">
+                <span className="instruction-card__number">{item.number}</span>
+                <h2>{item.title}</h2>
+                <p>{item.description}</p>
+              </article>
+            ))}
+          </div>
+
+          <div className="instructions-diagnostics">
+            {instructionsContent.diagnostics.map((item) => (
+              <article key={item.title} className="instruction-diagnostic">
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+              </article>
+            ))}
+          </div>
         </div>
-        <div className="inner-dark-slab inner-dark-slab--tall" />
       </section>
 
       <section className="instructions-support">
-        <p className="instructions-support__title">{instructionsContent.supportTitle}</p>
-        <div className="instructions-support__column instructions-support__column--email">
-          <p className="instructions-support__accent">Email поддержка:</p>
-          <a className="instructions-support__link" href="mailto:support@videl.tech">
-            support@videl.tech
-          </a>
-          <p className="instructions-support__accent">Время ответа:</p>
-          <p className="instructions-support__accent">до 24 часов</p>
-        </div>
+        <div className="site-container">
+          <p className="instructions-support__title">{instructionsContent.supportTitle}</p>
 
-        <div className="instructions-support__column instructions-support__column--telegram">
-          <p className="instructions-support__accent">Telegram бота:</p>
-          <a className="instructions-support__link" href="https://t.me/videl_support_bot" rel="noreferrer" target="_blank">
-            @videl_support_bot
-          </a>
-          <p className="instructions-support__accent">Быстрые ответы</p>
-          <p className="instructions-support__accent">и диагностика</p>
+          <div className="instructions-support__grid">
+            {instructionsContent.contacts.map((contact) => (
+              <article key={contact.title} className="instructions-support__card">
+                <p className="instructions-support__heading">{contact.title}</p>
+                {contact.body.map((line) => (
+                  <p key={line}>{line}</p>
+                ))}
+                <a className="site-light-button site-light-button--small" href={contact.href} target={contact.href.startsWith("http") ? "_blank" : undefined} rel="noreferrer">
+                  {contact.cta}
+                </a>
+              </article>
+            ))}
+          </div>
         </div>
-
-        <a className="figma-light-button figma-light-button--small instructions-support__button instructions-support__button--email" href="mailto:support@videl.tech">
-          {instructionsContent.emailButton}
-        </a>
-        <a
-          className="figma-light-button figma-light-button--small instructions-support__button instructions-support__button--telegram"
-          href="https://t.me/videl_support_bot"
-          rel="noreferrer"
-          target="_blank"
-        >
-          {instructionsContent.telegramButton}
-        </a>
       </section>
-    </Artboard>
+    </PageShell>
   );
 }

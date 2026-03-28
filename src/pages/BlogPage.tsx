@@ -1,33 +1,64 @@
-import { Artboard } from "../components/Artboard";
-import { TopStrip } from "../components/TopStrip";
-import { blogContent } from "../content/figma23120";
+import { PageShell } from "../components/PageShell";
+import { blogContent } from "../content/site";
 import { asset } from "../lib/paths";
-import { renderLines } from "../lib/text";
+
+function BlogHero() {
+  return (
+    <section className="inner-page-hero">
+      <div className="site-container">
+        <div className="inner-page-hero__frame">
+          <img alt="" aria-hidden="true" className="inner-page-hero__image" src={asset("figma/inner-hero.png")} />
+          <div className="inner-page-hero__overlay" />
+          <p className="site-gradient-heading site-gradient-heading--center inner-page-hero__title">{blogContent.hero.title}</p>
+          <p className="inner-page-hero__description">{blogContent.hero.description}</p>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export function BlogPage() {
   return (
-    <Artboard className="figma-inner-page" height={2212}>
-      <div className="figma-inner-page__background" />
-      <TopStrip page="blog" />
+    <PageShell page="blog">
+      <BlogHero />
 
-      <section>
-        <div className="inner-hero-frame" aria-hidden="true">
-          <img alt="" className="inner-hero-image" src={asset("figma-literal/blog-hero.png")} />
+      <section className="inner-wave-section">
+        <div className="site-container">
+          <div className="inner-wave-section__media">
+            <img alt="" aria-hidden="true" src={asset("figma/inner-wave.png")} />
+          </div>
         </div>
-        <h1 className="figma-gradient-heading figma-gradient-heading--center figma-inner-page__title" style={{ top: 86, width: 1014, left: 93 }}>
-          {renderLines(blogContent.title)}
-        </h1>
       </section>
 
-      <section>
-        <div className="inner-wave-frame" aria-hidden="true">
-          <img alt="" className="inner-wave-image" src={asset("figma-literal/blog-wave.png")} />
+      <section className="inner-page-section">
+        <div className="site-container">
+          <p className="blog-intro">{blogContent.intro}</p>
+
+          <article className="blog-featured">
+            <img alt={blogContent.featured.title} className="blog-featured__image" src={asset(blogContent.featured.image)} />
+            <div className="blog-featured__overlay" />
+            <div className="blog-featured__content">
+              <p className="blog-featured__eyebrow">Материал</p>
+              <h2>{blogContent.featured.title}</h2>
+              <p>{blogContent.featured.description}</p>
+            </div>
+          </article>
+
+          <div className="blog-grid">
+            {blogContent.posts.map((item) => (
+              <article key={item.title} className="blog-card">
+                <img alt={item.title} className="blog-card__image" src={asset(item.image)} />
+                <div className="blog-card__overlay" />
+                <div className="blog-card__content">
+                  <h3>{item.title}</h3>
+                  <p>{item.description}</p>
+                  <a href={item.href}>Читать материал</a>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
-        <div className="inner-dark-slab inner-dark-slab--blog" />
-        <p className="figma-inner-page__body figma-inner-page__body--center" style={{ top: 1592, left: 347, width: 504 }}>
-          {blogContent.supportTitle}
-        </p>
       </section>
-    </Artboard>
+    </PageShell>
   );
 }

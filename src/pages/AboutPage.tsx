@@ -1,44 +1,65 @@
-import { Artboard } from "../components/Artboard";
-import { TopStrip } from "../components/TopStrip";
-import { aboutContent } from "../content/figma23120";
+import { PageShell } from "../components/PageShell";
+import { aboutContent } from "../content/site";
 import { asset } from "../lib/paths";
-import { renderLines } from "../lib/text";
+
+function InnerHero({ description, title }: { title: string; description: string }) {
+  return (
+    <section className="inner-page-hero">
+      <div className="site-container">
+        <div className="inner-page-hero__frame">
+          <img alt="" aria-hidden="true" className="inner-page-hero__image" src={asset("figma/inner-hero.png")} />
+          <div className="inner-page-hero__overlay" />
+          <p className="site-gradient-heading site-gradient-heading--center inner-page-hero__title">{title}</p>
+          <HomeWordmark />
+          <p className="inner-page-hero__description">{description}</p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function HomeWordmark() {
+  return (
+    <div className="site-wordmark site-wordmark--inner" aria-hidden="true">
+      <span>N</span>
+      <span className="site-wordmark__ghost">IVI</span>
+      <span>M</span>
+    </div>
+  );
+}
 
 export function AboutPage() {
   return (
-    <Artboard className="figma-inner-page" height={2212}>
-      <div className="figma-inner-page__background" />
-      <TopStrip page="about" />
+    <PageShell page="about">
+      <InnerHero title={aboutContent.hero.title} description={aboutContent.hero.description} />
 
-      <section>
-        <div className="inner-hero-frame" aria-hidden="true">
-          <img alt="" className="inner-hero-image" src={asset("figma-literal/about-hero.png")} />
+      <section className="inner-wave-section">
+        <div className="site-container">
+          <div className="inner-wave-section__media">
+            <img alt="" aria-hidden="true" src={asset("figma/inner-wave.png")} />
+          </div>
         </div>
-        <h1 className="figma-gradient-heading figma-gradient-heading--center figma-inner-page__title" style={{ top: 86, width: 1014, left: 93 }}>
-          {renderLines(aboutContent.title)}
-        </h1>
-
-        <div className="figma-wordmark figma-wordmark--inner figma-wordmark--inner-ghosted" aria-hidden="true">
-          <span className="figma-wordmark__ghost">N</span>
-          <span>IVI</span>
-          <span className="figma-wordmark__ghost">M</span>
-        </div>
-        <div className="figma-wordmark figma-wordmark--inner" aria-hidden="true">
-          <span>N</span>
-          <span className="figma-wordmark__ghost">IVI</span>
-          <span>M</span>
-        </div>
-        <p className="figma-inner-page__description" style={{ top: 510, width: 593, left: 303 }}>
-          {aboutContent.description}
-        </p>
       </section>
 
-      <section>
-        <div className="inner-wave-frame" aria-hidden="true">
-          <img alt="" className="inner-wave-image" src={asset("figma-literal/about-wave.png")} />
+      <section className="inner-page-section">
+        <div className="site-container">
+          <div className="inner-manifesto">
+            {aboutContent.manifesto.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </div>
+
+          <div className="inner-value-grid">
+            {aboutContent.values.map((item) => (
+              <article key={item.title} className={`benefit-card benefit-card--${item.variant ?? "dark"}`}>
+                <img alt="" aria-hidden="true" className="benefit-card__icon" src={asset(item.icon)} />
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+              </article>
+            ))}
+          </div>
         </div>
-        <div className="inner-dark-slab" />
       </section>
-    </Artboard>
+    </PageShell>
   );
 }

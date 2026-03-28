@@ -8,80 +8,56 @@ type FooterProps = {
   ctaDescription?: string;
   ctaLabel?: string;
   ctaHref?: string;
-  onOpenLead?: () => void;
 };
 
-export function Footer({ ctaDescription, ctaHref, ctaLabel, ctaTitle, onOpenLead, showCta = false }: FooterProps) {
-  const primaryAction = ctaHref ?? homeAnchor("demo");
-
+export function Footer({ ctaDescription, ctaHref, ctaLabel, ctaTitle, showCta = false }: FooterProps) {
   return (
-    <footer id="contacts" className="relative overflow-hidden border-t border-white/8 bg-[#090a13]">
-      <div className="absolute inset-x-0 top-0 h-64 bg-[radial-gradient(circle_at_top,rgba(26,62,114,0.28),transparent_60%)]" aria-hidden="true" />
-      <div className="absolute inset-x-0 bottom-0 h-40 bg-[linear-gradient(180deg,transparent,rgba(26,62,114,0.08))]" aria-hidden="true" />
-
+    <footer id="contacts" className="site-footer">
       {showCta ? (
-        <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-8 px-4 pb-18 pt-20 sm:px-6 lg:flex-row lg:items-end lg:justify-between lg:px-8">
-          <div className="max-w-[42rem] space-y-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[var(--text-muted)]">Финальный CTA</p>
-            <h2 className="font-[var(--font-display)] text-[2.5rem] leading-[0.92] tracking-[0.05em] text-[var(--accent-soft)] sm:text-[3.4rem]">{ctaTitle}</h2>
-            <p className="max-w-[36rem] text-base leading-8 text-[var(--text-soft)]">{ctaDescription}</p>
+        <section className="site-footer__cta">
+          <div className="site-footer__cta-copy">
+            <h2 className="site-gradient-heading site-gradient-heading--left">{ctaTitle}</h2>
+            <p>{ctaDescription}</p>
           </div>
-
-          {onOpenLead ? (
-            <button
-              className="inline-flex min-h-14 items-center justify-center rounded-full bg-[var(--accent-soft)] px-7 text-sm font-semibold text-[var(--page-bg)] transition-transform duration-200 hover:-translate-y-0.5"
-              type="button"
-              onClick={onOpenLead}
-            >
-              {ctaLabel}
-            </button>
-          ) : (
-            <a
-              className="inline-flex min-h-14 items-center justify-center rounded-full bg-[var(--accent-soft)] px-7 text-sm font-semibold text-[var(--page-bg)] transition-transform duration-200 hover:-translate-y-0.5"
-              href={primaryAction}
-            >
+          {ctaHref ? (
+            <a className="site-light-button" href={ctaHref}>
               {ctaLabel}
             </a>
-          )}
+          ) : null}
         </section>
       ) : null}
 
-      <div className="mx-auto grid w-full max-w-[1220px] gap-12 px-4 pb-12 pt-14 sm:px-6 lg:grid-cols-[1.2fr,0.9fr,0.8fr] lg:px-8">
-        <div className="space-y-5">
+      <section className="site-footer__body">
+        <div className="site-footer__brand">
           <Logo light />
-          <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[var(--text-muted)]">Projection aesthetics</p>
-          <p className="max-w-[24rem] text-sm leading-7 text-[var(--text-soft)]">{footerContent.description}</p>
+          <p>{footerContent.description}</p>
         </div>
 
-        <div className="grid gap-4 text-sm text-[var(--text-soft)]">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[var(--text-muted)]">Контакты</p>
-          {footerContent.contacts.map((line) => (
-            <p key={line} className="leading-7">
-              {line}
-            </p>
+        <div className="site-footer__contacts">
+          {footerContent.contacts.map((item) => (
+            <p key={item}>{item}</p>
           ))}
         </div>
 
-        <div className="grid gap-3 text-sm text-[var(--text-muted)]">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[var(--text-muted)]">Навигация</p>
+        <div className="site-footer__nav">
           {navigation.primary.map((item) => (
-            <a
-              key={item.label}
-              className="transition-colors duration-200 hover:text-[var(--accent-soft)]"
-              href={item.href.startsWith("/#") ? homeAnchor(item.href.slice(2)) : route(item.href)}
-            >
+            <a key={item.label} href={item.href.startsWith("/#") ? homeAnchor(item.href.slice(2)) : route(item.href)}>
               {item.label}
             </a>
           ))}
-          <a className="transition-colors duration-200 hover:text-[var(--accent-soft)]" href={route("/privacy-policy/")}>
-            {footerContent.legal}
-          </a>
+          <a href={route("/privacy-policy/")}>{footerContent.legal}</a>
         </div>
-      </div>
+      </section>
 
-      <div className="mx-auto flex w-full max-w-[1220px] flex-col gap-3 border-t border-white/8 px-4 py-6 text-sm text-[var(--text-muted)] sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+      <section className="site-footer__meta">
         <p>{footerContent.copyright}</p>
         <p>{footerContent.credit}</p>
+      </section>
+
+      <div className="site-footer__wordmark" aria-hidden="true">
+        <span>N</span>
+        <span className="site-footer__wordmark-ghost">IVI</span>
+        <span>M</span>
       </div>
     </footer>
   );

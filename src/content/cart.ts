@@ -22,7 +22,7 @@ export const catalog: CatalogItem[] = [
     id: PRIMARY_PRODUCT_ID,
     title: "VIDEL R1",
     subtitle: "Проектор NIVIM",
-    description: "Full HD проектор с поддержкой 4K, автофокусом и Android 12 — в том же literal-контексте, что и основной лендинг.",
+    description: "Full HD проектор с поддержкой 4K, автофокусом, Android 12 и беспроводным подключением для домашнего кино без лишних настроек.",
     specs: [
       "Full HD + поддержка 4K",
       "1000 ANSI люменов",
@@ -39,13 +39,14 @@ export const catalog: CatalogItem[] = [
 export const promoRules: PromoRule[] = [];
 
 export const cartContent = {
-  title: "Корзина",
-  lead: "Проверь состав заказа, скорректируй количество и отправь заявку на оформление.",
-  summaryNote: "После отправки откроется почтовый клиент с уже собранным заказом. Если удобнее — можно сразу перейти в Telegram.",
+  title: "Корзина и оформление заказа",
+  lead: "Проверь состав заказа, измени количество при необходимости и оставь контакты для подтверждения.",
   emptyTitle: "В корзине пока пусто",
-  emptyBody: "Добавь VIDEL R1 с главной страницы, и здесь появится состав заказа.",
-  checkoutTitle: "Оформление заказа",
+  emptyBody: "Добавь VIDEL R1 с главной страницы, и здесь появится состав заказа с оформлением.",
+  checkoutTitle: "Оформление",
   telegramUrl: "https://t.me/nivim_support_bot",
   telegramLabel: "Написать в Telegram",
-  orderEmail: "support@nivim.tech",
+  successTitle: "Заявка отправлена",
+  successBody:
+    "Мы сохранили заказ локально как оформленный и показали подтверждение на странице. Дальше можно вернуться на главную или сразу перейти в поддержку NIVIM.",
 };

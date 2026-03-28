@@ -1,17 +1,17 @@
 # NIVIM
 
-Literal Figma-driven React MPA for `NIVIM / VIDEL R1`.
+Semantic Figma-led React MPA for `NIVIM / VIDEL R1`.
 
-The current implementation follows the `23120:*` block from the Figma file `Wqxtf3Cd7vatdGp0rN5BQC` as the canonical source for:
+The project is rebuilt around the `23120:*` block from the Figma file `Wqxtf3Cd7vatdGp0rN5BQC`, but implemented as a real website instead of a scaled artboard. The visual structure of the canonical pages comes from:
 
 - `/` → `23120:218`
 - `/o-kompanii/` → `23120:146`
 - `/instrukcii/` → `23120:169`
 - `/blog/` → `23120:197`
 
-The only screen that is not present in the source Figma block is `/cart/`. It is implemented separately, but in the same visual language and with working client-side cart + checkout form behavior.
+The cart screen `/cart/` does not exist in the source Figma block, so it is implemented as a separate site page in the same visual language, with working client-side cart state and a local checkout success flow.
 
-The site is built as a **React multi-page app**, so GitHub Pages serves real files per route instead of an SPA shell.
+The site is built as a **React multi-page app**, so GitHub Pages serves real route files instead of an SPA shell or a fixed canvas.
 
 ## Stack
 
@@ -23,7 +23,7 @@ The site is built as a **React multi-page app**, so GitHub Pages serves real fil
 
 ## Routes
 
-Routes:
+Canonical routes:
 
 - `/`
 - `/o-kompanii/`
@@ -44,7 +44,7 @@ npm install
 npm run dev
 ```
 
-The local app runs on `http://localhost:4173/`.
+The local app runs on `http://localhost:4173/` by default.
 
 ## Checks and build
 
@@ -72,13 +72,13 @@ npm run preview
 ```text
 src/
   app/          mount helper
-  components/   shared UI and page shell
+  components/   shared layout and semantic sections
   commerce/     cart state and checkout helpers
-  content/      typed content and Figma-derived asset map
+  content/      typed content and route data
   entries/      MPA entry points
   lib/          route + asset helpers
   pages/        route-level page composition
-  styles/       global tokens and shared CSS
+  styles/       tokens and shared site CSS
 
 index.html
 o-kompanii/index.html
@@ -90,14 +90,19 @@ privacy-policy/index.html
 404.html
 
 public/assets/
-  figma/        exported assets used by the literal home build
-  figma-literal/ exact exported screenshots from Figma inner pages
-  tilda/        local media kept from the original repo
+  figma/        exported assets reused from the design file
+  figma-literal/ reference exports used for exact inner-page media
+  tilda/        legacy media still used where it matches the product
 ```
 
 ## Notes
 
-- Desktop fidelity is prioritized.
+- Desktop fidelity is prioritized, but the implementation uses normal semantic web structure:
+  - `header`
+  - `nav`
+  - `main`
+  - `section`
+  - `footer`
 - `privacy-policy` and `404` are utility pages and do not have literal counterparts inside `23120:*`.
 - The cart screen is a new route with:
   - add/remove items
@@ -105,7 +110,14 @@ public/assets/
   - subtotal / total
   - checkout form
   - basic validation
-  - `mailto` submission + Telegram backup CTA
+  - local success-state after submit
+  - Telegram backup CTA
+
+## Design decisions
+
+- The old artboard/canvas implementation was removed from the publish path.
+- The white top strip from `23120:*` is implemented as a real functional header.
+- Inner pages keep the geometry and visual language of `23120:*`, but raw foreign content is replaced with NIVIM copy.
 
 ## Deployment
 
