@@ -42,28 +42,42 @@ export function Header({ page }: HeaderProps) {
       return;
     }
 
-    const onScroll = () => {
-      const footer = document.getElementById("contacts");
+    const product = document.getElementById("product");
+    const contacts = document.getElementById("contacts");
 
-      if (!footer) {
-        setActiveAnchor("product");
-        return;
-      }
+    if (!product || !contacts) {
+      setActiveAnchor("product");
+      return;
+    }
 
-      const footerTop = footer.getBoundingClientRect().top;
-      const viewportHeight = window.innerHeight || 0;
-      setActiveAnchor(footerTop < viewportHeight * 0.55 ? "contacts" : "product");
-    };
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((left, right) => right.intersectionRatio - left.intersectionRatio)[0];
 
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+        if (!visible) {
+          return;
+        }
+
+        setActiveAnchor(visible.target.id === "contacts" ? "contacts" : "product");
+      },
+      {
+        rootMargin: "-18% 0px -44% 0px",
+        threshold: [0.15, 0.35, 0.6],
+      },
+    );
+
+    observer.observe(product);
+    observer.observe(contacts);
+
+    return () => observer.disconnect();
   }, [page]);
 
   return (
     <>
       <header className="site-header">
-        <div className={`site-header__shell ${scrolled ? "site-header__shell--scrolled" : ""}`}>
+        <div className={`site-header__shell ${scrolled ? "site-header__shell--scrolled" : ""} ${page === "home" && !scrolled ? "site-header__shell--top" : ""}`}>
           <Logo />
 
           <nav className="site-header__nav" aria-label="Основная навигация">

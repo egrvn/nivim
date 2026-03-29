@@ -23,6 +23,7 @@ function HeroSection() {
   const { scrollY } = useScroll();
   const wordmarkY = useTransform(scrollY, [0, 520], [0, -22]);
   const auroraY = useTransform(scrollY, [0, 520], [0, 28]);
+  const deviceY = useTransform(scrollY, [0, 520], [0, 18]);
 
   return (
     <section className="home-hero">
@@ -41,21 +42,31 @@ function HeroSection() {
       </div>
 
       <div className="site-container home-hero__content">
-        <Reveal>
-          <p className="site-gradient-heading site-gradient-heading--center home-hero__kicker">{homeContent.hero.kicker}</p>
-        </Reveal>
-        <Reveal delay={0.06}>
-          <p className="home-hero__lead">{homeContent.hero.lead}</p>
-        </Reveal>
-        <Reveal delay={0.1}>
-          <a className="site-light-button site-light-button--center" href={homeAnchor("product")}>
-            {homeContent.hero.button}
-          </a>
-        </Reveal>
+        <div className="home-hero__copy">
+          <Reveal>
+            <p className="site-gradient-heading site-gradient-heading--center home-hero__kicker">{homeContent.hero.kicker}</p>
+          </Reveal>
+          <Reveal delay={0.06}>
+            <p className="home-hero__lead">{homeContent.hero.lead}</p>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <div className="home-hero__actions">
+              <a className="site-light-button site-light-button--center" href={homeAnchor("product")}>
+                {homeContent.hero.button}
+              </a>
+            </div>
+          </Reveal>
+        </div>
 
-        <motion.div style={reduceMotion ? undefined : { y: wordmarkY }}>
-          <HomeWordmark />
-        </motion.div>
+        <div className="home-hero__visual">
+          <motion.div className="home-hero__wordmark-shell" style={reduceMotion ? undefined : { y: wordmarkY }}>
+            <HomeWordmark />
+          </motion.div>
+          <motion.div className="home-hero__device-shell" style={reduceMotion ? undefined : { y: deviceY }}>
+            <img alt="Проектор VIDEL R1" className="home-hero__device" src={asset(homeContent.hero.device)} fetchPriority="high" />
+          </motion.div>
+        </div>
+
         <Reveal delay={0.14}>
           <p className="home-hero__note">{homeContent.hero.note}</p>
         </Reveal>
@@ -252,33 +263,54 @@ function ValueSection() {
           <img alt="" src={asset(homeContent.value.background)} />
         </div>
 
-        <Reveal>
-          <h2 className="site-gradient-heading site-gradient-heading--center home-section__title">{homeContent.value.title}</h2>
-        </Reveal>
-        <Reveal delay={0.04}>
-          <p className="home-section__copy home-section__copy--narrow">{homeContent.value.description}</p>
-        </Reveal>
-
         <div className="home-value__grid">
-          <Reveal delay={0.08} className="home-value__specs">
-            {homeContent.value.specs.map((spec) => (
-              <p key={spec}>{spec}</p>
-            ))}
+          <Reveal delay={0.04} className="home-value__copy-shell">
+            <p className="home-value__eyebrow">{homeContent.value.eyebrow}</p>
+            <h2 className="site-gradient-heading site-gradient-heading--left home-value__title">{homeContent.value.title}</h2>
+            <p className="home-value__description">{homeContent.value.description}</p>
+
+            <div className="home-value__highlights">
+              {homeContent.value.highlights.map((item) => (
+                <article key={item.title} className="home-value__highlight">
+                  <img alt="" aria-hidden="true" src={asset(item.icon)} />
+                  <div>
+                    <h3>{item.title}</h3>
+                    <p>{item.description}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+
+            <div className="home-value__specs">
+              {homeContent.value.specs.map((spec) => (
+                <p key={spec}>{spec}</p>
+              ))}
+            </div>
+
+            <div className="home-value__action">
+              <div className="home-value__price-block">
+                <span>Стоимость</span>
+                <p className="home-value__price">{homeContent.value.price}</p>
+                <small>{homeContent.value.caption}</small>
+              </div>
+              <button
+                className="site-light-button home-value__cta"
+                type="button"
+                onClick={() => {
+                  addItem(PRIMARY_PRODUCT_ID);
+                  window.location.href = route("/cart/");
+                }}
+              >
+                {homeContent.value.cta}
+              </button>
+            </div>
           </Reveal>
 
-          <Reveal delay={0.12} className="home-value__product">
-            <p className="home-value__price">{homeContent.value.price}</p>
-            <button
-              className="site-light-button"
-              type="button"
-              onClick={() => {
-                addItem(PRIMARY_PRODUCT_ID);
-                window.location.href = route("/cart/");
-              }}
-            >
-              {homeContent.value.cta}
-            </button>
-            <img alt="VIDEL R1" className="home-value__image" src={asset(homeContent.value.image)} loading="lazy" decoding="async" />
+          <Reveal delay={0.1} className="home-value__product">
+            <div className="home-value__visual-shell">
+              <img alt="" aria-hidden="true" className="home-value__stage" src={asset(homeContent.value.background)} loading="lazy" decoding="async" />
+              <img alt="Проектор NIVIM VIDEL R1" className="home-value__image" src={asset(homeContent.value.image)} loading="lazy" decoding="async" />
+            </div>
           </Reveal>
         </div>
       </div>

@@ -33,19 +33,41 @@ export function Footer({ ctaDescription, ctaHref, ctaLabel, ctaTitle, showCta = 
           <p>{footerContent.description}</p>
         </div>
 
-        <div className="site-footer__contacts">
-          {footerContent.contacts.map((item) => (
-            <p key={item}>{item}</p>
-          ))}
+        <div className="site-footer__column">
+          <p className="site-footer__label">{footerContent.navTitle}</p>
+          <div className="site-footer__nav">
+            {navigation.primary.map((item) => (
+              <a key={item.label} href={item.href.startsWith("/#") ? homeAnchor(item.href.slice(2)) : route(item.href)}>
+                {item.label}
+              </a>
+            ))}
+          </div>
         </div>
 
-        <div className="site-footer__nav">
-          {navigation.primary.map((item) => (
-            <a key={item.label} href={item.href.startsWith("/#") ? homeAnchor(item.href.slice(2)) : route(item.href)}>
-              {item.label}
-            </a>
-          ))}
-          <a href={route("/privacy-policy/")}>{footerContent.legal}</a>
+        <div className="site-footer__column">
+          <p className="site-footer__label">{footerContent.contactsTitle}</p>
+          <div className="site-footer__contacts">
+            {footerContent.contacts.map((item) =>
+              item.href ? (
+                <a key={item.label} href={item.href} target={item.href.startsWith("http") ? "_blank" : undefined} rel={item.href.startsWith("http") ? "noreferrer" : undefined}>
+                  <span>{item.label}</span>
+                  <strong>{item.value}</strong>
+                </a>
+              ) : (
+                <p key={item.label}>
+                  <span>{item.label}</span>
+                  <strong>{item.value}</strong>
+                </p>
+              ),
+            )}
+          </div>
+        </div>
+
+        <div className="site-footer__column">
+          <p className="site-footer__label">{footerContent.legalTitle}</p>
+          <div className="site-footer__nav">
+            <a href={route("/privacy-policy/")}>{footerContent.legal}</a>
+          </div>
         </div>
       </section>
 
@@ -53,12 +75,6 @@ export function Footer({ ctaDescription, ctaHref, ctaLabel, ctaTitle, showCta = 
         <p>{footerContent.copyright}</p>
         {footerContent.credit ? <p>{footerContent.credit}</p> : null}
       </section>
-
-      <div className="site-footer__wordmark" aria-hidden="true">
-        <span>N</span>
-        <span className="site-footer__wordmark-ghost">IVI</span>
-        <span>M</span>
-      </div>
     </footer>
   );
 }

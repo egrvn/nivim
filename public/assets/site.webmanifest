@@ -8,8 +8,13 @@
   "theme_color": "#0a0b10",
   "icons": [
     {
-      "src": "/nivim/tilda/tild3863-6137-4363-a365-616134313931__frame_13.png",
+      "src": "/nivim/icons/android-chrome-192x192.png",
       "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/nivim/icons/android-chrome-512x512.png",
+      "sizes": "512x512",
       "type": "image/png"
     }
   ]

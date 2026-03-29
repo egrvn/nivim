@@ -36,6 +36,12 @@ export type FeatureItem = {
   variant?: "dark" | "accent" | "outline";
 };
 
+export type ValueHighlight = {
+  title: string;
+  description: string;
+  icon: string;
+};
+
 export type Testimonial = {
   name: string;
   role: string;
@@ -223,8 +229,26 @@ export const homeContent = {
     background: "figma/video-bg.png",
   },
   value: {
+    eyebrow: "VIDEL R1",
     title: "Не дороже других. Просто лучше",
     description: "VIDEL R1 дает тот же эффект, что и проекторы за 45 000 ₽+, но без переплаты за логотип",
+    highlights: [
+      {
+        title: "Домашний экран без сложного сетапа",
+        description: "Запускается быстро, не требует отдельной приставки и не спорит с интерьером.",
+        icon: "figma/icon-movie.svg",
+      },
+      {
+        title: "Честная яркость и автонастройка",
+        description: "1000 ANSI, автофокус и моторизированный зум уже включены в базовую конфигурацию.",
+        icon: "figma/icon-brightness.svg",
+      },
+      {
+        title: "Стриминги и беспроводное подключение",
+        description: "Android 12, Wi‑Fi 6 и Bluetooth 5.0 дают быстрый доступ к контенту без проводного хаоса.",
+        icon: "figma/icon-wifi.svg",
+      },
+    ] as ValueHighlight[],
     specs: [
       "Full HD + поддержка 4K",
       "1000 ANSI люменов",
@@ -234,6 +258,7 @@ export const homeContent = {
       "Гарантия 1 год",
     ],
     price: "Цена: 29 990 ₽",
+    caption: "В наличии · гарантия 1 год · поддержка NIVIM",
     cta: "Добавить в корзину",
     image: "tilda/tild3337-3639-4334-b665-373130313963__magnifics_upscale-ss.png",
     background: "tilda/tild6166-6333-4363-a231-636636633838__magnifics_upscale-zt.png",
@@ -483,12 +508,26 @@ export const privacyContent = {
 };
 
 export const footerContent = {
-  description: "Проектор, который делает домашний просмотр масштабным, чистым и простым в запуске.",
+  description: "Домашний проектор NIVIM для тех, кто хочет масштаб, атмосферу и быстрый запуск без лишней техники вокруг.",
   contacts: [
-    "Email для связи: support@nivim.tech",
-    "Поддержка в Telegram: @nivim_support_bot",
-    "Ежедневно с 9:00 до 21:00 (МСК)",
+    {
+      label: "Email",
+      value: "support@nivim.tech",
+      href: "mailto:support@nivim.tech",
+    },
+    {
+      label: "Telegram",
+      value: "@nivim_support_bot",
+      href: "https://t.me/nivim_support_bot",
+    },
+    {
+      label: "Поддержка",
+      value: "Ежедневно с 9:00 до 21:00 (МСК)",
+    },
   ],
+  navTitle: "Разделы",
+  contactsTitle: "Контакты",
+  legalTitle: "Документы",
   legal: "Правовая информация",
   credit: "",
   copyright: "© 2025. Все права защищены",
