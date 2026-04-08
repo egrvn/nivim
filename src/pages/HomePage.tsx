@@ -44,15 +44,22 @@ function HeroSection() {
       <div className="site-container home-hero__content">
         <div className="home-hero__copy">
           <Reveal>
+            <p className="site-eyebrow home-hero__eyebrow">NIVIM · VIDEL R1</p>
+          </Reveal>
+          <Reveal delay={0.04}>
             <p className="site-gradient-heading site-gradient-heading--center home-hero__kicker">{homeContent.hero.kicker}</p>
           </Reveal>
-          <Reveal delay={0.06}>
+          <Reveal delay={0.08}>
             <p className="home-hero__lead">{homeContent.hero.lead}</p>
           </Reveal>
-          <Reveal delay={0.1}>
+          <Reveal delay={0.12}>
             <div className="home-hero__actions">
-              <a className="site-light-button site-light-button--center" href={homeAnchor("product")}>
-                {homeContent.hero.button}
+              <a className="site-light-button site-light-button--primary" href={homeAnchor("product")}>
+                <span>{homeContent.hero.button}</span>
+                <span className="site-light-button__icon" aria-hidden="true">↓</span>
+              </a>
+              <a className="site-ghost-button" href={route("/cart/")}>
+                {homeContent.hero.secondary}
               </a>
             </div>
           </Reveal>
@@ -67,9 +74,81 @@ function HeroSection() {
           </motion.div>
         </div>
 
-        <Reveal delay={0.14}>
+        <Reveal delay={0.16}>
           <p className="home-hero__note">{homeContent.hero.note}</p>
         </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function StorySection() {
+  return (
+    <section className="home-section home-story">
+      <div className="site-container">
+        <Reveal>
+          <p className="site-eyebrow">{homeContent.story.eyebrow}</p>
+        </Reveal>
+        <Reveal delay={0.04}>
+          <h2 className="site-gradient-heading site-gradient-heading--left home-story__title">{homeContent.story.title}</h2>
+        </Reveal>
+        <Reveal delay={0.08}>
+          <p className="home-section__copy home-section__copy--left">{homeContent.story.description}</p>
+        </Reveal>
+
+        <div className="home-story__timeline">
+          <div className="home-story__rail" aria-hidden="true" />
+          {homeContent.story.chapters.map((chapter, index) => (
+            <Reveal key={chapter.title} delay={0.12 + index * 0.08}>
+              <article className="home-story__chapter">
+                <div className="home-story__time">{chapter.eyebrow}</div>
+                <div className="home-story__marker" aria-hidden="true" />
+                <div className="home-story__copy">
+                  <h3>{chapter.title}</h3>
+                  <p>{chapter.body}</p>
+                </div>
+              </article>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ProblemSection() {
+  return (
+    <section className="home-section home-problem">
+      <div className="site-container">
+        <Reveal>
+          <p className="site-eyebrow">{homeContent.problem.eyebrow}</p>
+        </Reveal>
+        <Reveal delay={0.04}>
+          <h2 className="site-gradient-heading site-gradient-heading--center home-section__title home-section__title--wide">
+            {homeContent.problem.title}
+          </h2>
+        </Reveal>
+        <Reveal delay={0.08}>
+          <p className="home-section__copy home-section__copy--wide">{homeContent.problem.description}</p>
+        </Reveal>
+
+        <div className="home-problem__grid">
+          {homeContent.problem.pairs.map((pair, index) => (
+            <Reveal key={pair.problem} delay={0.12 + index * 0.06}>
+              <article className="home-problem__card">
+                <div className="home-problem__row home-problem__row--minus">
+                  <span className="home-problem__sign" aria-hidden="true">−</span>
+                  <p>{pair.problem}</p>
+                </div>
+                <div className="home-problem__divider" aria-hidden="true" />
+                <div className="home-problem__row home-problem__row--plus">
+                  <span className="home-problem__sign" aria-hidden="true">+</span>
+                  <p>{pair.solution}</p>
+                </div>
+              </article>
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -318,28 +397,31 @@ function ValueSection() {
   );
 }
 
-function TestimonialsSection() {
+function VoicesSection() {
   return (
-    <section className="home-section">
+    <section className="home-section home-voices">
       <div className="site-container">
-        <Reveal>
-          <h2 className="site-gradient-heading site-gradient-heading--center home-section__title">{homeContent.testimonials.title}</h2>
-        </Reveal>
-        <Reveal delay={0.04}>
-          <p className="home-section__copy">{homeContent.testimonials.description}</p>
-        </Reveal>
-        <div className="testimonial-grid">
-          {homeContent.testimonials.items.map((item, index) => (
-            <Reveal key={item.name} delay={0.08 + index * 0.05}>
-              <article className="testimonial-card">
-                <p className="testimonial-card__quote">“{item.quote}”</p>
-                <div className="testimonial-card__meta">
-                  <strong>{item.name}</strong>
-                  <span>{item.role}</span>
-                </div>
-              </article>
-            </Reveal>
-          ))}
+        <div className="home-voices__shell">
+          <Reveal>
+            <p className="site-eyebrow">{homeContent.voices.eyebrow}</p>
+          </Reveal>
+          <Reveal delay={0.04}>
+            <h2 className="site-gradient-heading site-gradient-heading--center home-voices__title">{homeContent.voices.title}</h2>
+          </Reveal>
+          <Reveal delay={0.08}>
+            <p className="home-voices__description">{homeContent.voices.description}</p>
+          </Reveal>
+          <Reveal delay={0.12}>
+            <div className="home-voices__actions">
+              <a className="site-light-button site-light-button--primary" href={homeContent.voices.href} target="_blank" rel="noreferrer">
+                <span>{homeContent.voices.button}</span>
+                <span className="site-light-button__icon" aria-hidden="true">→</span>
+              </a>
+              <a className="site-ghost-button" href={homeContent.voices.secondaryHref} target="_blank" rel="noreferrer">
+                {homeContent.voices.secondaryLabel}
+              </a>
+            </div>
+          </Reveal>
         </div>
       </div>
     </section>
@@ -425,13 +507,15 @@ export function HomePage() {
       showFooterCta
     >
       <HeroSection />
+      <StorySection />
+      <ProblemSection />
       <ScenariosSection />
       <BenefitsSection />
       <StepsSection />
       <FeaturesSection />
       <VideoSection />
       <ValueSection />
-      <TestimonialsSection />
+      <VoicesSection />
       <FaqSection />
       <SupportSection />
       <EditorialSection />

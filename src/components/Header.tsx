@@ -78,7 +78,7 @@ export function Header({ page }: HeaderProps) {
     <>
       <header className="site-header">
         <div className={`site-header__shell ${scrolled ? "site-header__shell--scrolled" : ""} ${page === "home" && !scrolled ? "site-header__shell--top" : ""}`}>
-          <Logo />
+          <Logo light />
 
           <nav className="site-header__nav" aria-label="Основная навигация">
             {navigation.primary.map((item) => {
