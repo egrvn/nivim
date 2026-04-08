@@ -1,33 +1,21 @@
-import { asset, route } from "../lib/paths";
+import { route } from "../lib/paths";
 
 type LogoProps = {
   light?: boolean;
-  compact?: boolean;
+  size?: "sm" | "md";
 };
 
-export function Logo({ light = false, compact = false }: LogoProps) {
-  const markUrl = asset("brand/nivim-mark.svg");
-  const wordmarkUrl = asset("brand/nivim-wordmark.svg");
-
+export function Logo({ light = false, size = "md" }: LogoProps) {
   return (
     <a
-      className={`site-logo ${light ? "site-logo--light" : ""} ${compact ? "site-logo--compact" : ""}`}
+      className={`site-logo site-logo--${size} ${light ? "site-logo--light" : ""}`}
       href={route("/")}
       aria-label="NIVIM"
     >
-      <span
-        className="site-logo__mark"
-        aria-hidden="true"
-        style={{ WebkitMaskImage: `url(${markUrl})`, maskImage: `url(${markUrl})` }}
-      />
-      {!compact ? (
-        <span
-          className="site-logo__wordmark"
-          role="img"
-          aria-label="NIVIM"
-          style={{ WebkitMaskImage: `url(${wordmarkUrl})`, maskImage: `url(${wordmarkUrl})` }}
-        />
-      ) : null}
+      <span className="site-logo__wordmark" aria-hidden="true">
+        NIVIM
+      </span>
+      <span className="site-logo__dot" aria-hidden="true" />
     </a>
   );
 }

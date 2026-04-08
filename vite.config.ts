@@ -27,6 +27,7 @@ export default defineConfig({
         blog: resolve(__dirname, "blog/index.html"),
         privacy: resolve(__dirname, "privacy-policy/index.html"),
         cart: resolve(__dirname, "cart/index.html"),
+        contacts: resolve(__dirname, "kontakty/index.html"),
         notFound: resolve(__dirname, "404.html"),
       },
     },
