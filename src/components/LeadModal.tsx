@@ -95,7 +95,7 @@ export function LeadModal({ open, onClose }: LeadModalProps) {
     <AnimatePresence>
       {open ? (
         <motion.div
-          className="fixed inset-0 z-[70] flex items-center justify-center bg-[rgba(10,11,16,0.78)] p-4 backdrop-blur-md"
+          className="fixed inset-0 z-[70] flex items-center justify-center bg-[rgba(5,7,16,0.92)] p-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -110,7 +110,7 @@ export function LeadModal({ open, onClose }: LeadModalProps) {
             role="dialog"
             aria-modal="true"
             aria-labelledby="lead-modal-title"
-            className="relative w-full max-w-[36rem] overflow-hidden rounded-[32px] border border-[rgba(227,239,239,0.12)] bg-[linear-gradient(180deg,rgba(227,239,239,0.08),rgba(227,239,239,0.04))] p-6 text-white shadow-[0_48px_120px_rgba(4,6,20,0.56)] backdrop-blur-2xl sm:p-8"
+            className="relative w-full max-w-[36rem] overflow-hidden rounded-[24px] border border-[rgba(149,186,230,0.22)] bg-[linear-gradient(180deg,rgba(13,18,36,0.98),rgba(6,8,18,0.98))] p-6 text-white shadow-[0_48px_120px_rgba(4,6,20,0.72)] sm:p-8"
             initial={{ opacity: 0, y: 32, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.98 }}

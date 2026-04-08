@@ -23,7 +23,7 @@ export function Header({ page }: HeaderProps) {
   const { itemCount } = useCart();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeAnchor, setActiveAnchor] = useState<"product" | "contacts">("product");
+  const [productInView, setProductInView] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -39,59 +39,58 @@ export function Header({ page }: HeaderProps) {
 
   useEffect(() => {
     if (page !== "home") {
+      setProductInView(false);
       return;
     }
 
     const product = document.getElementById("product");
-    const contacts = document.getElementById("contacts");
-
-    if (!product || !contacts) {
-      setActiveAnchor("product");
+    if (!product) {
       return;
     }
 
     const observer = new IntersectionObserver(
       (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((left, right) => right.intersectionRatio - left.intersectionRatio)[0];
-
-        if (!visible) {
-          return;
+        for (const entry of entries) {
+          setProductInView(entry.isIntersecting);
         }
-
-        setActiveAnchor(visible.target.id === "contacts" ? "contacts" : "product");
       },
       {
-        rootMargin: "-18% 0px -44% 0px",
-        threshold: [0.15, 0.35, 0.6],
+        rootMargin: "-22% 0px -50% 0px",
+        threshold: [0.05, 0.25, 0.5],
       },
     );
 
     observer.observe(product);
-    observer.observe(contacts);
-
     return () => observer.disconnect();
   }, [page]);
 
   return (
     <>
       <header className="site-header">
-        <div className={`site-header__shell ${scrolled ? "site-header__shell--scrolled" : ""} ${page === "home" && !scrolled ? "site-header__shell--top" : ""}`}>
+        <div
+          className={`site-header__shell ${scrolled ? "site-header__shell--scrolled" : ""} ${
+            page === "home" && !scrolled ? "site-header__shell--top" : ""
+          }`}
+        >
           <Logo light />
 
           <nav className="site-header__nav" aria-label="Основная навигация">
             {navigation.primary.map((item) => {
               const href = normalizeHref(item.href);
               const active =
-                (page === "home" && item.href === `/#${activeAnchor}`) ||
+                (page === "home" && item.href === "/#product" && productInView) ||
                 (page === "about" && item.href === "/o-kompanii/") ||
                 (page === "instructions" && item.href === "/instrukcii/") ||
-                (page === "blog" && item.href === "/blog/");
+                (page === "blog" && item.href === "/blog/") ||
+                (page === "contacts" && item.href === "/kontakty/");
 
               return (
-                <a key={item.label} className={`site-header__link ${active ? "site-header__link--active" : ""}`} href={href}>
-                  {item.label}
+                <a
+                  key={item.label}
+                  className={`site-header__link ${active ? "site-header__link--active" : ""}`}
+                  href={href}
+                >
+                  <span>{item.label}</span>
                 </a>
               );
             })}
@@ -100,7 +99,9 @@ export function Header({ page }: HeaderProps) {
           <div className="site-header__actions">
             <a className="site-header__cart" href={route("/cart/")} aria-label={`Корзина, товаров: ${itemCount}`}>
               <span>Корзина</span>
-              <span className="site-header__cart-count">{itemCount}</span>
+              <span className="site-header__cart-count" aria-hidden="true">
+                {itemCount}
+              </span>
             </a>
 
             <button

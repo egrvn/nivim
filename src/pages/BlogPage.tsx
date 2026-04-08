@@ -7,8 +7,7 @@ function BlogHero() {
     <section className="inner-page-hero">
       <div className="site-container">
         <div className="inner-page-hero__frame">
-          <img alt="" aria-hidden="true" className="inner-page-hero__image" src={asset("figma/inner-hero.png")} />
-          <div className="inner-page-hero__overlay" />
+          <div className="inner-page-hero__overlay" aria-hidden="true" />
           <p className="site-gradient-heading site-gradient-heading--center inner-page-hero__title">{blogContent.hero.title}</p>
           <p className="inner-page-hero__description">{blogContent.hero.description}</p>
         </div>
@@ -24,9 +23,7 @@ export function BlogPage() {
 
       <section className="inner-wave-section">
         <div className="site-container">
-          <div className="inner-wave-section__media">
-            <img alt="" aria-hidden="true" src={asset("figma/inner-wave.png")} />
-          </div>
+          <div className="inner-wave-section__media" aria-hidden="true" />
         </div>
       </section>
 

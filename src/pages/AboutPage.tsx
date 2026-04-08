@@ -1,14 +1,13 @@
+import { Icon } from "../components/Icon";
 import { PageShell } from "../components/PageShell";
 import { aboutContent } from "../content/site";
-import { asset } from "../lib/paths";
 
 function InnerHero({ description, title }: { title: string; description: string }) {
   return (
     <section className="inner-page-hero">
       <div className="site-container">
         <div className="inner-page-hero__frame">
-          <img alt="" aria-hidden="true" className="inner-page-hero__image" src={asset("figma/inner-hero.png")} />
-          <div className="inner-page-hero__overlay" />
+          <div className="inner-page-hero__overlay" aria-hidden="true" />
           <p className="site-gradient-heading site-gradient-heading--center inner-page-hero__title">{title}</p>
           <HomeWordmark />
           <p className="inner-page-hero__description">{description}</p>
@@ -35,9 +34,7 @@ export function AboutPage() {
 
       <section className="inner-wave-section">
         <div className="site-container">
-          <div className="inner-wave-section__media">
-            <img alt="" aria-hidden="true" src={asset("figma/inner-wave.png")} />
-          </div>
+          <div className="inner-wave-section__media" aria-hidden="true" />
         </div>
       </section>
 
@@ -52,7 +49,9 @@ export function AboutPage() {
           <div className="inner-value-grid">
             {aboutContent.values.map((item) => (
               <article key={item.title} className={`benefit-card benefit-card--${item.variant ?? "dark"}`}>
-                <img alt="" aria-hidden="true" className="benefit-card__icon" src={asset(item.icon)} />
+                <span className={`site-icon-frame ${item.variant === "accent" ? "site-icon-frame--accent" : ""}`}>
+                  <Icon name={item.icon} size="md" tone="frost" />
+                </span>
                 <h3>{item.title}</h3>
                 <p>{item.description}</p>
               </article>
